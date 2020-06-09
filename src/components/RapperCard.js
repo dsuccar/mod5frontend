@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 export default class RapperCard extends React.Component {
   constructor(){
@@ -16,8 +16,11 @@ export default class RapperCard extends React.Component {
        
     }
 
+
+    
+
   render(){
-    console.log(this.state)
+    // console.log(this.state)
     // {this.props.handleClick}
     return(
       

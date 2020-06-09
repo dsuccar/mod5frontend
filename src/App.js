@@ -14,6 +14,7 @@ class App extends React.Component {
     this.state = {
       user: null,
       rapperList: [],
+      bossRapper: null,
       selectedRapper: null
     }
   }
@@ -22,9 +23,17 @@ class App extends React.Component {
   componentDidMount(){
     fetch('http://localhost:3000/rappers')
     .then(resp => resp.json())
-    .then(json => {
+    .then(rappers => {
       this.setState({
-        rapperList: json
+        rapperList: rappers.filter(rap => rap.isboss === false)
+      })
+    })
+
+    fetch('http://localhost:3000/rappers')
+    .then(resp => resp.json())
+    .then(rappers => {
+      this.setState({
+        bossRapper: rappers.find(rap=> rap.isboss===true)
       })
     })
   }
@@ -47,8 +56,13 @@ class App extends React.Component {
     })
   }
 
+
+
+
+
+
   render() {
-    console.log(this.state)
+    console.log(this.state.rapperList)
     return (
       // <div className="App">
         
@@ -72,20 +86,21 @@ class App extends React.Component {
            
         }else if (this.state.selectedRapper === null){
           return <SelectCharCont 
+          
           rapperList={this.state.rapperList}
           selectRapper={this.selectRapper}/>
 
         } else if (this.state.selectedRapper != null) {
-          return <BattleContainer selectedRapper={this.state.selectedRapper}/>
+          return <BattleContainer 
+          
+          bossRapper={this.state.bossRapper}   
+          selectedRapper={this.state.selectedRapper}/>
+          }
         }
       }
-    }
-      
-         
-      />
-        
-   
-      </div>
+    />
+  </div>
+
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card } from 'semantic-ui-react'
 
 export default class BossCard extends React.Component {
 
@@ -9,12 +10,20 @@ export default class BossCard extends React.Component {
 
   render(){
     return(
-      <div>
+       
+      <Card>
+      <Card.Content>
+        <Card.Header>
+          {this.props.bossRapperInfo.name}
+        </Card.Header>
+        <Card.Description>
+          
+            <div>{this.props.bossRapperInfo.hp}</div>
 
-            IS
-            
-      </div>
-  
+        </Card.Description>
+      </Card.Content>
+    </Card>
+    
 
     )
   }
