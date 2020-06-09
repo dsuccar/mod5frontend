@@ -62,7 +62,7 @@ class App extends React.Component {
 
 
   render() {
-    console.log(this.state.rapperList)
+    // console.log(this.state.rapperList)
     return (
       // <div className="App">
         

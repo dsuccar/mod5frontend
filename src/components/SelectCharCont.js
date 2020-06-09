@@ -19,7 +19,7 @@ export default class SelectCharCont extends React.Component {
       <div>
         {this.props.rapperList.map(rapper => 
         <RapperCard 
-       
+
         key={rapper.id}
         rapper={rapper}
         selectRapper={this.props.selectRapper}/>
