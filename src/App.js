@@ -19,6 +19,7 @@ class App extends React.Component {
     }
   }
 
+
  
   componentDidMount(){
     fetch('http://localhost:3000/rappers')
@@ -45,8 +46,8 @@ class App extends React.Component {
         allUsers.forEach(pastUser => {
            if(pastUser.username === user.username) {
       this.setState({user: pastUser})
-    }}
-        )
+    }
+  })
       )
   }
 
@@ -57,7 +58,35 @@ class App extends React.Component {
   }
 
 
+endGame = (bossRapper,userRapper) => {
+  if (bossRapper === 0) {
+    console.log("yup")
+  const userWon =  {
 
+  user_id: this.state.user.id,
+  boss_id: this.state.bossRapper.id,
+  winner_id: this.state.user.id
+  }
+    fetch("http://localhost:3000/battles", {
+      method: "POST", 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userWon)
+    })
+    this.setState({
+      user: this.state.user,
+      rapperList: this.state.rapperList,
+      bossRapper: this.state.bossRapper,
+      selectedRapper: null
+    })
+    console.log(this.state)
+    
+  } else if (userRapper ===0){
+    alert("User Died")
+    
+}
+}
 
 
 
@@ -94,7 +123,9 @@ class App extends React.Component {
           return <BattleContainer 
           
           bossRapper={this.state.bossRapper}   
-          selectedRapper={this.state.selectedRapper}/>
+          selectedRapper={this.state.selectedRapper}
+          user = {this.state.user}
+          endGame = {this.endGame}/>
           }
         }
       }

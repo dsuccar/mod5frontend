@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Checkbox, Form } from 'semantic-ui-react'
 
 
 export default class Signin extends Component {
@@ -32,10 +33,18 @@ export default class Signin extends Component {
 
 
     return (
-      <form>
-        <input placeholder='Username' name='username' type='text' onChange={this.handleChange} value={this.state.username} />
-        <input type='submit' value='Sign In' onClick={this.handleSubmit} />
-      </form>
+      // <form>
+      //   <input placeholder='Username' name='username' type='text' onChange={this.handleChange} value={this.state.username} />
+      //   <input type='submit' value='Sign In' onClick={this.handleSubmit} />
+      // </form>
+      <Form>
+      <Form.Field>
+        <h2> Sign In:</h2>
+         <input placeholder='Username' name='username' type='text' onChange={this.handleChange} value={this.state.username} />
+         <input type='submit' value='Sign In' onClick={this.handleSubmit} />
+         {/* <Button type='submit' value='Sign In' onClick={this.handleSubmit} >Submit</Button> */}
+       </Form.Field>
+       </Form>
     )
   }
 } 

@@ -29,9 +29,12 @@ export default class BattleContainer extends React.Component {
     }
 
   }
-  
+  componentDidUpdate(){
+    this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
+  }
   componentDidMount(){
-  
+    
+
   fetch(`http://localhost:3000/rappers/${this.props.selectedRapper.id}`)
   .then(resp => resp.json())
   .then(userRapper => this.setState({
@@ -66,7 +69,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
   event.preventDefault()
   let bossAnswer = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
   let userAnswer = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
-  debugger
+  
   if (turn === "userTurn") {
     if ( userAnswer.length > 0){
       this.setState({
@@ -78,7 +81,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
         userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{
           name: this.state.bossRapperInfo.name,
-          hp: this.state.bossRapperInfo.hp - 25,
+          hp: this.state.bossRapperInfo.hp - 100,
           myTurn: !this.state.bossRapperInfo.myTurn
         },
         bossRapperLyrics: this.state.bossRapperLyrics
@@ -98,6 +101,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
+          
       } 
     }else if (turn === "bossTurn") {
 
@@ -116,76 +120,34 @@ onHandleSubmitAnswer = (answer, turn, event) => {
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
-  
+          
       } else {
         this.setState({
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp: this.state.userRapperInfo.hp - 25,
+            hp:  this.state.userRapperInfo.hp - 100 ,
             myTurn: !this.state.userRapperInfo.myTurn
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
-            hp: this.state.bossRapperInfo.hp ,
+            hp: this.state.bossRapperInfo.hp,
             myTurn: !this.state.bossRapperInfo.myTurn
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
+          
       }
-    // } else if (turn === "bossTurn") {
-    //   if (!!this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer) === true){
-    //     this.setState({
-    //       userRapperInfo: {
-    //         name: this.state.userRapperInfo.name,
-    //         bio: this.state.userRapperInfo.bio,
-    //         hp: this.state.userRapperInfo.hp,
-    //         hometown: this.state.userRapperInfo.hometown,
-    //         myTurn: false
-    //       },
-    //       userRapperLyrics: this.state.userRapperLyrics,
-  
-    //       bossRapperInfo:{
-    //         name: this.state.bossRapperInfo.name,
-    //         bio: this.state.bossRapperInfo.bio,
-    //         hp: this.state.bossRapperInfo.hp - 25,
-    //         hometown: this.state.bossRapperInfo.hometown,
-    //         myTurn: true
-    //       },
-    //       bossRapperLyrics: this.state.bossRapperLyrics
-    //       })
-    //     } else {
-    //       this.setState({
-    //         userRapperInfo: {
-    //           name: this.state.userRapperInfo.name,
-    //           bio: this.state.userRapperInfo.bio,
-    //           hp: this.state.userRapperInfo.hp,
-    //           hometown: this.state.userRapperInfo.hometown,
-    //           myTurn: false
-    //         },
-    //         userRapperLyrics: this.state.userRapperLyrics,
-    
-    //         bossRapperInfo:{
-    //           name: this.state.bossRapperInfo.name,
-    //           bio: this.state.bossRapperInfo.bio,
-    //           hp: this.state.bossRapperInfo.hp ,
-    //           hometown: this.state.bossRapperInfo.hometown,
-    //           myTurn: true
-    //         },
-    //         bossRapperLyrics: this.state.bossRapperLyrics
-    //         })
-  
-    //     } 
-
     }
   }
 
 
-
   render(){
-    // console.log(this.state.userRapperInfo)
-// debugger
+  
+
     return(
+
+      
   
       <div>
         {this.state.bossRapperLyrics && 
@@ -215,7 +177,6 @@ onHandleSubmitAnswer = (answer, turn, event) => {
         </div>
         }
       </div>
-
         
   )
 

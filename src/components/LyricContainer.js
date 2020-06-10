@@ -12,6 +12,8 @@ export default class LyricCard extends React.Component {
 
   }
 
+  
+
   randomLyric = () => {
     
     const lyricArray = this.props.lyrics
@@ -46,7 +48,7 @@ export default class LyricCard extends React.Component {
       })
     }
   render(){
-    console.log(this.props.lyrics)
+
     return(
       <div>
       {!this.state.randomLyric
