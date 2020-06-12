@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Grid,Button } from 'semantic-ui-react'
 
 
 export default class LyricCard extends React.Component {
@@ -25,7 +25,7 @@ export default class LyricCard extends React.Component {
 
   handleChangeAnswer = (event) => {
       // console.log(event.target.value)
-  if (this.props.bossTurn === true){
+  if (this.props.bossInfo.myTurn === true){
       this.setState({
         answer: event.target.value.toLowerCase(),
         turn: "bossTurn"
@@ -38,7 +38,7 @@ export default class LyricCard extends React.Component {
     }
 
   
-  
+    
   
     submitAnswerAndClear = (event) => {
       this.props.onHandleSubmitAnswer(this.state.answer, this.state.turn,event)
@@ -48,28 +48,49 @@ export default class LyricCard extends React.Component {
       })
     }
   render(){
-
+console.log(this.props)
     return(
-      <div>
+      <Grid>
+      
+      <Grid.Row columns={1}>
+        <Grid.Column>
+   
       {!this.state.randomLyric
       ?
-      <div onClick={this.randomLyric}>click here to get lyric</div>
+     
+      <Button onClick={this.randomLyric}>click here to get lyric
+      </Button>
+   
       :
       <div>
         <h1>
           {this.state.randomLyric.text}
         </h1>
         <form onSubmit={ event => {this.submitAnswerAndClear(event)}} >
-          <input name="answer" placeholder="Title" onChange={this.handleChangeAnswer} />
+          <input name="answer" 
+          placeholder="Title" onChange={this.handleChangeAnswer} 
+           />
+
           <button type="submit">
           Submit
         </button>
         </form>
       </div>
   
-    
+  
     }
-    </div>
+    </Grid.Column>
+ </Grid.Row>
+
+        
+        
+          
+          
+      
+      
+        
+      </Grid>
+      
 
   
 

@@ -5,7 +5,7 @@ import Signin from './components/Signin'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -52,9 +52,21 @@ class App extends React.Component {
   }
 
   selectRapper = (rapper) =>{
-    this.setState({
+    const userObj = {
+      artist_id: rapper.id,
+      username: this.state.user.name,
+      badges:'wind' }
+    
+    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+      method: "PATCH", 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userObj)
+    }).then(
+      this.setState({
       selectedRapper: rapper
-    })
+    }))
   }
 
 
@@ -80,7 +92,7 @@ endGame = (bossRapper,userRapper) => {
       bossRapper: this.state.bossRapper,
       selectedRapper: null
     })
-    console.log(this.state)
+    // console.log(this.state)
     
   } else if (userRapper ===0){
     alert("User Died")
@@ -101,12 +113,44 @@ endGame = (bossRapper,userRapper) => {
       //     selectRapper={this.selectRapper}
       //   />}
             
-          
+      // <div className="App">
+      //        {<NavBar user={this.state.user}/>}
+      //        <Switch>
+      //         <Route  
+      //           exact 
+      //           path='/'
+      //           render={()=>{
+      //               return <Signin submitUser={this.submitUser}/>
+      //             }}
+      //             />
+
+      //         <Route  
+      //           exact 
+      //           path='/select_character'
+      //           render={()=>{
+      //               return <SelectCharCont 
+      //                         rapperList={this.state.rapperList}
+      //                         selectRapper={this.selectRapper}/>
+      //           }}
+      //           />
+
+      //         <Route  
+      //           exact 
+      //           path='/battle'
+      //           render={()=>{
+                  
+      //               return <BattleContainer 
+      //                         bossRapper={this.state.bossRapper}   
+      //                         selectedRapper={this.state.selectedRapper}
+      //                         user = {this.state.user}
+      //                         endGame = {this.endGame}/>
+      //           }}
+      //           />
+      //               </Switch>
+      //               </div>
+
       <div className="App">
         {<NavBar user={this.state.user}/>}
-       
-          
-
          <Route  
          exact path='/'
          render={()=>{
@@ -129,8 +173,8 @@ endGame = (bossRapper,userRapper) => {
           }
         }
       }
-    />
-  </div>
+      />
+    </div>
 
     );
   }

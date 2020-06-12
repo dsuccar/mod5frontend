@@ -1,29 +1,42 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Grid } from 'semantic-ui-react'
 
 export default class BossCard extends React.Component {
 
 
-
+  myTurnStyle = {
+    border: "5px solid",
+    borderColor: "#de2f2f"
+  }
 
     
 
   render(){
+    // console.log(!this.props.bossRapperInfo.myTurn)
+// 
     return(
-       
-      <Card>
-      <Card.Content>
-        <Card.Header>
-          {this.props.bossRapperInfo.name}
-        </Card.Header>
-        <Card.Description>
-          
-            <div>{this.props.bossRapperInfo.hp}</div>
-
-        </Card.Description>
-      </Card.Content>
-    </Card>
-    
+      <div>
+      {!this.props.bossRapperInfo.myTurn ?
+      <Grid>
+    <Grid.Row>
+    <Grid.Column>
+    <h1>{this.props.bossRapperInfo.name}</h1>
+      <div>{this.props.bossRapperInfo.hp}</div>
+    </Grid.Column>
+  </Grid.Row>
+  </Grid>
+   :
+   <Grid>
+   <Grid.Row>
+   <Grid.Column style={this.myTurnStyle}>
+   <h1>{this.props.bossRapperInfo.name}</h1>
+      <div>{this.props.bossRapperInfo.hp}</div>
+   </Grid.Column>
+   </Grid.Row>
+   </Grid>
+   }
+   </div>
+     
 
     )
   }

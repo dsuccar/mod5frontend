@@ -17,10 +17,10 @@ export default class RapperCard extends React.Component {
     }
 
 
-    
+    l
 
   render(){
-    // console.log(this.state)
+    // console.log(this.props.rapper)
     // {this.props.handleClick}
     return(
       
@@ -29,7 +29,7 @@ export default class RapperCard extends React.Component {
       <Card.Header>{this.props.rapper.name}</Card.Header>
           <Card.Description>
           <div>
-             <p>{this.props.rapper.bio}</p>
+             <p>{this.props.rapper.hometown}</p>
           </div>
           </Card.Description>
       </Card.Content>

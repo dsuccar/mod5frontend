@@ -1,5 +1,6 @@
 import React from 'react'
 import RapperCard from './RapperCard'
+import { Grid } from 'semantic-ui-react'
 export default class SelectCharCont extends React.Component {
   constructor(){
     super()
@@ -10,21 +11,33 @@ export default class SelectCharCont extends React.Component {
   }
 
 
-
+  selectCharStyle = {
+    paddingTop: "12px"
+  }
   render(){
     // console.log(this.props)
 
     return(
       
-      <div>
-        {this.props.rapperList.map(rapper => 
+      <Grid>
+      
+      <Grid.Row columns={3}>
+      
+          
+      
+      
+      {this.props.rapperList.map(rapper => 
+      <Grid.Column style={this.selectCharStyle}>
         <RapperCard 
 
         key={rapper.id}
         rapper={rapper}
         selectRapper={this.props.selectRapper}/>
-        )}
-      </div>
+        </Grid.Column>
+        )}      
+      </Grid.Row>     
+    </Grid>
+      
     )
   }
 

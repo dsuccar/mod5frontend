@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Grid } from 'semantic-ui-react'
 
 export default class UserCard extends React.Component {
   // constructor(){
@@ -17,27 +17,36 @@ export default class UserCard extends React.Component {
 //   }
 
 // }
-   
+myTurnStyle = {
+  border: "5px solid",
+  borderColor: "#de2f2f"
+}
   render(){
-    // console.log(this.props.rapperLyrics)
 
     return(
-      <Card>
-      <Card.Content>
-        <Card.Header>
-          {this.props.userRapperInfo.name}
-        </Card.Header>
-        <Card.Description>
-          
-            <div>{this.props.userRapperInfo.hp}</div>
-
-            
-           
-          
-        </Card.Description>
-      </Card.Content>
-    </Card>
-
+    
+      <div>
+         {!this.props.userRapperInfo.myTurn ?
+         <Grid>
+       <Grid.Row>
+       <Grid.Column>
+        <h1>{this.props.userRapperInfo.name}</h1>
+        <div>{this.props.userRapperInfo.hp}</div>
+       </Grid.Column>
+     </Grid.Row>
+     </Grid>
+      :
+      <Grid>
+      <Grid.Row>
+      <Grid.Column style={this.myTurnStyle}>
+      <h1>{this.props.userRapperInfo.name}</h1>
+      <div>{this.props.userRapperInfo.hp}</div>
+      </Grid.Column>
+      </Grid.Row>
+      </Grid>
+      }
+      </div>
+        
     )
   }
 

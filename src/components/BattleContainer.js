@@ -2,6 +2,7 @@ import UserCard from './UserCard'
 import LyricContainer from './LyricContainer'
 import BossCard from './BossCard'
 import React from 'react'
+import { Grid, Segment } from 'semantic-ui-react'
 // import { Card } from 'semantic-ui-react'
 
 export default class BattleContainer extends React.Component {
@@ -33,7 +34,7 @@ export default class BattleContainer extends React.Component {
     this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
   }
   componentDidMount(){
-    
+    console.log(this.props.selectedRapper)
 
   fetch(`http://localhost:3000/rappers/${this.props.selectedRapper.id}`)
   .then(resp => resp.json())
@@ -60,7 +61,8 @@ export default class BattleContainer extends React.Component {
     },
     bossRapperLyrics: bossRapper.lyrics
 
-  }))
+  })
+  )
   
 } 
 
@@ -81,7 +83,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
         userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{
           name: this.state.bossRapperInfo.name,
-          hp: this.state.bossRapperInfo.hp - 100,
+          hp: this.state.bossRapperInfo.hp - 25,
           myTurn: !this.state.bossRapperInfo.myTurn
         },
         bossRapperLyrics: this.state.bossRapperLyrics
@@ -125,7 +127,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
         this.setState({
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp:  this.state.userRapperInfo.hp - 100 ,
+            hp:  this.state.userRapperInfo.hp - 25 ,
             myTurn: !this.state.userRapperInfo.myTurn
           },
           userRapperLyrics: this.state.userRapperLyrics,
@@ -140,6 +142,12 @@ onHandleSubmitAnswer = (answer, turn, event) => {
       }
     }
   }
+colorChange = (turn) => {
+
+
+
+}
+
 
 
   render(){
@@ -149,35 +157,71 @@ onHandleSubmitAnswer = (answer, turn, event) => {
 
       
   
-      <div>
-        {this.state.bossRapperLyrics && 
-        <div>
-          <BossCard 
+      
+
+      <Grid columns='equal'>
+      
+      <Grid.Row >
+        <Grid.Column>
+        </Grid.Column>
+        <Grid.Column verticalAlign='middle'>
+        <Segment>
+            {this.state.userRapperInfo.myTurn === true
+              ?
+              <LyricContainer 
+                lyrics={this.state.userRapperLyrics}
+                userInfo={this.state.userRapperInfo}
+                bossInfo={this.state.bossRapperInfo}
+                onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
+                
+              :
+              <LyricContainer 
+                lyrics={this.state.bossRapperLyrics}
+                userInfo={this.state.userRapperInfo}
+                bossInfo={this.state.bossRapperInfo}
+                onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
+              }
+        </Segment>
+        </Grid.Column>
+        <Grid.Column>
+        </Grid.Column>
+      </Grid.Row>
+    <Grid.Row columns={2}> 
+    </Grid.Row>
+        
+
+
+      <Grid.Row >
+      <Grid.Column>
+        <Segment>
+          <UserCard 
+              userRapperInfo={this.state.userRapperInfo} 
+              userRapperLyrics={this.state.usersRapperLyrics}/>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column >
+        
+       
+        </Grid.Column>
+        <Grid.Column>
+          <Segment>
+        <BossCard 
             bossRapperInfo={this.state.bossRapperInfo}
             bossRapperLyrics={this.state.bossRapperLyrics}/>
+           </Segment>  
+        </Grid.Column>
+        </Grid.Row>
 
-          {this.state.userRapperInfo.myTurn === true
-          ?
-          <LyricContainer 
-            lyrics={this.state.userRapperLyrics}
-            userTurn={this.state.userRapperInfo.myTurn}
-            bossTurn={this.state.bossRapperInfo.myTurn}
-            onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
-          :
-          <LyricContainer 
-            lyrics={this.state.bossRapperLyrics}
-            userTurn={this.state.userRapperInfo.myTurn}
-            bossTurn={this.state.bossRapperInfo.myTurn}
-            onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
-          }
 
-          <UserCard 
-          userRapperInfo={this.state.userRapperInfo} 
-          userRapperLyrics={this.state.bossRapperLyrics}/>
-        </div>
-        }
-      </div>
+
+        <Grid.Row columns={2}>
         
+        
+        </Grid.Row>
+        
+      </Grid>
+      
+  
   )
 
   }
