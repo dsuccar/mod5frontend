@@ -9,31 +9,31 @@ class Signin extends Component {
   constructor() {
     super()
     this.state = {
-      username: ""
+      username: "",
+      password: ""
     }
   }
 
   handleChange = (event) => {
-
-
     this.setState({
-      username: event.target.value
-
+      [event.target.name]: event.target.value
     })
   }
+
 
   handleSubmit = (event) => {
     event.preventDefault()
     const user = {
-      username: this.state.username
+      username: this.state.username,
+      password: this.state.password
     }
     this.props.submitUser(user)
-    this.props.history.push(`/select_rapper`)
-    this.setState({ username: "" })
+  
+    this.setState({ username: "", password: "" })
   }
 
   render() {
-console.log(this.props)
+// console.log(this.state.username, this.state.password)
 
     return (
       // <form>
@@ -61,6 +61,9 @@ console.log(this.props)
               <Form.Input
                 placeholder='Log In' name='username' type='text' onChange={this.handleChange} value={this.state.username}
               />
+              <Form.Input
+              placeholder='password' name='password' type='text' onChange={this.handleChange} value={this.state.password}
+            />
       
               <Button content='submit' value='Sign In' onClick={this.handleSubmit} />
             </Form>

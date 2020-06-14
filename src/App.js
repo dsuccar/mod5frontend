@@ -5,7 +5,7 @@ import Signin from './components/Signin'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -44,17 +44,22 @@ class App extends React.Component {
       .then(resp => resp.json())
       .then(allUsers =>
         allUsers.forEach(pastUser => {
-           if(pastUser.username === user.username) {
+          
+           if(pastUser.username === user.username && pastUser.password === user.password) {
       this.setState({user: pastUser})
-    }
+      this.props.history.push(`/select_rapper`)
+      
+    } 
   })
       )
   }
+
 
   selectRapper = (rapper) =>{
     const userObj = {
       artist_id: rapper.id,
       username: this.state.user.name,
+      password: this.state.user.password,
       badges:'wind' }
     
     fetch(`http://localhost:3000/users/${this.state.user.id}`, {
@@ -180,4 +185,4 @@ endGame = (bossRapper,userRapper) => {
   }
 }
 
-export default App;
+export default withRouter(App);
