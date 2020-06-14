@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 // import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
 
-export default class Signin extends Component {
+class Signin extends Component {
 
   constructor() {
     super()
@@ -27,11 +28,12 @@ export default class Signin extends Component {
       username: this.state.username
     }
     this.props.submitUser(user)
+    this.props.history.push(`/select_rapper`)
     this.setState({ username: "" })
   }
 
   render() {
-
+console.log(this.props)
 
     return (
       // <form>
@@ -80,3 +82,4 @@ export default class Signin extends Component {
     )
   }
 } 
+export default withRouter(Signin)

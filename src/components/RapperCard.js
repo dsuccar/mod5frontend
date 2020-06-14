@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
-export default class RapperCard extends React.Component {
+ class RapperCard extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -13,7 +14,7 @@ export default class RapperCard extends React.Component {
 
     handleClick = () => {
         this.props.selectRapper(this.props.rapper)
-       
+       this.props.history.push("battle")
     }
 
 
@@ -39,3 +40,4 @@ export default class RapperCard extends React.Component {
   }
 
 }
+export default withRouter(RapperCard)

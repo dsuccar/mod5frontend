@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Grid,Button } from 'semantic-ui-react'
+import {Grid ,Button } from 'semantic-ui-react'
 
 
 export default class LyricCard extends React.Component {
@@ -15,12 +15,14 @@ export default class LyricCard extends React.Component {
   
 
   randomLyric = () => {
-    
+  
     const lyricArray = this.props.lyrics
     let randomLyric = lyricArray[Math.floor(Math.random() * lyricArray.length)];
      this.setState({
        randomLyric: randomLyric,
       })
+      
+   
   }
 
   handleChangeAnswer = (event) => {
@@ -35,21 +37,24 @@ export default class LyricCard extends React.Component {
           turn: "userTurn"
         })
       }
+  
     }
 
   
     
   
     submitAnswerAndClear = (event) => {
+    
       this.props.onHandleSubmitAnswer(this.state.answer, this.state.turn,event)
       this.setState({
         randomLyric: null,
         answer: ""
       })
+
     }
   render(){
-console.log(this.props)
-    return(
+    this.props.answerFeedback(this.state.randomLyric)
+        return(
       <Grid>
       
       <Grid.Row columns={1}>
@@ -68,7 +73,8 @@ console.log(this.props)
         </h1>
         <form onSubmit={ event => {this.submitAnswerAndClear(event)}} >
           <input name="answer" 
-          placeholder="Title" onChange={this.handleChangeAnswer} 
+          placeholder="Title" 
+          onChange={this.handleChangeAnswer} 
            />
 
           <button type="submit">

@@ -33,6 +33,7 @@ myTurnStyle = {
         <h1>{this.props.userRapperInfo.name}</h1>
         <div>{this.props.userRapperInfo.hp}</div>
        </Grid.Column>
+ 
      </Grid.Row>
      </Grid>
       :

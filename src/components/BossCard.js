@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Grid } from 'semantic-ui-react'
+import {  Grid } from 'semantic-ui-react'
 
 export default class BossCard extends React.Component {
 
@@ -23,6 +23,7 @@ export default class BossCard extends React.Component {
     <h1>{this.props.bossRapperInfo.name}</h1>
       <div>{this.props.bossRapperInfo.hp}</div>
     </Grid.Column>
+    
   </Grid.Row>
   </Grid>
    :

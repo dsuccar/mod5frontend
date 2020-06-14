@@ -44,7 +44,9 @@ export default class BattleContainer extends React.Component {
       bio: userRapper.bio,
       hp: userRapper.hp,
       hometown: userRapper.hometown,
-      myTurn: true
+      myTurn: true,
+      isTrue: null
+
     },
     userRapperLyrics: userRapper.lyrics
     })
@@ -57,7 +59,8 @@ export default class BattleContainer extends React.Component {
       bio: bossRapper.bio,
       hp: bossRapper.hp,
       hometown: bossRapper.hometown,
-      myTurn: false
+      myTurn: false,
+      isTrue: null
     },
     bossRapperLyrics: bossRapper.lyrics
 
@@ -75,31 +78,37 @@ onHandleSubmitAnswer = (answer, turn, event) => {
   if (turn === "userTurn") {
     if ( userAnswer.length > 0){
       this.setState({
+        
         userRapperInfo: {
           name: this.state.userRapperInfo.name,
           hp: this.state.userRapperInfo.hp ,
-          myTurn: !this.state.userRapperInfo.myTurn
+          myTurn: !this.state.userRapperInfo.myTurn,
+          isTrue: true
         },
         userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{
           name: this.state.bossRapperInfo.name,
           hp: this.state.bossRapperInfo.hp - 25,
-          myTurn: !this.state.bossRapperInfo.myTurn
+          myTurn: !this.state.bossRapperInfo.myTurn,
+          isTrue: null
         },
         bossRapperLyrics: this.state.bossRapperLyrics
         })
       } else {
         this.setState({
+          wrongGuessAnswer: userAnswer,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
             hp: this.state.userRapperInfo.hp ,
-            myTurn: !this.state.userRapperInfo.myTurn
+            myTurn: !this.state.userRapperInfo.myTurn,
+            isTrue: false
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
             hp: this.state.bossRapperInfo.hp,
-            myTurn: !this.state.bossRapperInfo.myTurn
+            myTurn: !this.state.bossRapperInfo.myTurn,
+            isTrue: null
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
@@ -112,29 +121,35 @@ onHandleSubmitAnswer = (answer, turn, event) => {
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
             hp: this.state.userRapperInfo.hp ,
-            myTurn: !this.state.userRapperInfo.myTurn
+            myTurn: !this.state.userRapperInfo.myTurn,
+            isTrue: null
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
             hp: this.state.bossRapperInfo.hp,
-            myTurn: !this.state.bossRapperInfo.myTurn
+            myTurn: !this.state.bossRapperInfo.myTurn,
+            isTrue: true
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
           
       } else {
         this.setState({
+          wrongGuessAnswer: bossAnswer,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
             hp:  this.state.userRapperInfo.hp - 25 ,
-            myTurn: !this.state.userRapperInfo.myTurn
+            myTurn: !this.state.userRapperInfo.myTurn,
+            isTrue: null
+            
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
             hp: this.state.bossRapperInfo.hp,
-            myTurn: !this.state.bossRapperInfo.myTurn
+            myTurn: !this.state.bossRapperInfo.myTurn,
+            isTrue: false
           },
           bossRapperLyrics: this.state.bossRapperLyrics
           })
@@ -142,8 +157,14 @@ onHandleSubmitAnswer = (answer, turn, event) => {
       }
     }
   }
-colorChange = (turn) => {
-
+answerFeedback = (lyric) => {
+  console.log(lyric)
+//   if (!!lyric === true) {
+// this.setState({userRapperInfo: this.state.userRapperInfo,
+// userRapperLyrics: this.state.userRapperLyrics,
+// bossRapperInfo: this.state.bossRapperInfo,
+// bossRapperLyrics: this.state.bossRapperLyrics
+// })}
 
 
 }
@@ -152,7 +173,7 @@ colorChange = (turn) => {
 
   render(){
   
-
+// console.log(this.state)
     return(
 
       
@@ -172,14 +193,16 @@ colorChange = (turn) => {
                 lyrics={this.state.userRapperLyrics}
                 userInfo={this.state.userRapperInfo}
                 bossInfo={this.state.bossRapperInfo}
-                onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
+                onHandleSubmitAnswer={this.onHandleSubmitAnswer}
+                answerFeedback={this.answerFeedback}/>
                 
               :
               <LyricContainer 
                 lyrics={this.state.bossRapperLyrics}
                 userInfo={this.state.userRapperInfo}
                 bossInfo={this.state.bossRapperInfo}
-                onHandleSubmitAnswer={this.onHandleSubmitAnswer}/>
+                onHandleSubmitAnswer={this.onHandleSubmitAnswer}
+                answerFeedback={this.answerFeedback}/>
               }
         </Segment>
         </Grid.Column>
@@ -200,7 +223,44 @@ colorChange = (turn) => {
           </Segment>
         </Grid.Column>
         <Grid.Column >
-        
+          {/* Feedback if user Rapper answered correctly */}
+        { this.state.bossRapperInfo.isTrue 
+        ?
+        <Grid.Column>
+          <h1>✅</h1>
+        </Grid.Column>
+       :
+        <Grid.Column>
+          {this.state.bossRapperInfo.isTrue !== null
+          ?
+          <h1>❌</h1>
+          :
+          <div></div>
+
+          }
+        </Grid.Column>
+        }
+
+        {/* Feedback if user Rapper answered correctly */}
+         { this.state.userRapperInfo.isTrue 
+        ?
+        <Grid.Column>
+          <div>✅</div>
+        </Grid.Column>
+       :
+        <Grid.Column>
+          {this.state.userRapperInfo.isTrue !== null
+          ?
+          <div>
+            <h1>❌</h1>
+            {/* <h3>{this.state.}</h3> */}
+          </div>
+          :
+          <div></div>
+
+          }
+        </Grid.Column>
+        }
        
         </Grid.Column>
         <Grid.Column>

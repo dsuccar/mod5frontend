@@ -1,7 +1,9 @@
 import React from 'react'
 import RapperCard from './RapperCard'
 import { Grid } from 'semantic-ui-react'
-export default class SelectCharCont extends React.Component {
+
+
+ export default class SelectCharCont extends React.Component {
   constructor(){
     super()
       this.state = {

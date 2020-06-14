@@ -5,7 +5,7 @@ import Signin from './components/Signin'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -113,68 +113,68 @@ endGame = (bossRapper,userRapper) => {
       //     selectRapper={this.selectRapper}
       //   />}
             
-      // <div className="App">
-      //        {<NavBar user={this.state.user}/>}
-      //        <Switch>
-      //         <Route  
-      //           exact 
-      //           path='/'
-      //           render={()=>{
-      //               return <Signin submitUser={this.submitUser}/>
-      //             }}
-      //             />
-
-      //         <Route  
-      //           exact 
-      //           path='/select_character'
-      //           render={()=>{
-      //               return <SelectCharCont 
-      //                         rapperList={this.state.rapperList}
-      //                         selectRapper={this.selectRapper}/>
-      //           }}
-      //           />
-
-      //         <Route  
-      //           exact 
-      //           path='/battle'
-      //           render={()=>{
-                  
-      //               return <BattleContainer 
-      //                         bossRapper={this.state.bossRapper}   
-      //                         selectedRapper={this.state.selectedRapper}
-      //                         user = {this.state.user}
-      //                         endGame = {this.endGame}/>
-      //           }}
-      //           />
-      //               </Switch>
-      //               </div>
-
       <div className="App">
-        {<NavBar user={this.state.user}/>}
-         <Route  
-         exact path='/'
-         render={()=>{
-          if (this.state.user === null) {
-            return <Signin submitUser={this.submitUser}/>
-           
-        }else if (this.state.selectedRapper === null){
-          return <SelectCharCont 
-          
-          rapperList={this.state.rapperList}
-          selectRapper={this.selectRapper}/>
+             {<NavBar user={this.state.user}/>}
+             <Switch>
+              <Route  
+                exact 
+                path='/'
+                render={()=>{
+                    return <Signin submitUser={this.submitUser}/>
+                  }}
+                  />
+              
+              <Route  
+                exact 
+                path='/select_rapper'
+                render={()=>{
+                    return <SelectCharCont 
+                              rapperList={this.state.rapperList}
+                              selectRapper={this.selectRapper}/>
+                }}
+                />
+              
+              <Route  
+                exact 
+                path='/battle'
+                render={()=>{
+                  
+                    return <BattleContainer 
+                              bossRapper={this.state.bossRapper}   
+                              selectedRapper={this.state.selectedRapper}
+                              user = {this.state.user}
+                              endGame = {this.endGame}/>
+                }}
+                />
+                    </Switch>
+                    </div>
 
-        } else if (this.state.selectedRapper != null) {
-          return <BattleContainer 
+    //   <div className="App">
+    //     {<NavBar user={this.state.user}/>}
+    //      <Route  
+    //      exact path='/'
+    //      render={()=>{
+    //       if (this.state.user === null) {
+    //         return <Signin submitUser={this.submitUser}/>
+           
+    //     }else if (this.state.selectedRapper === null){
+    //       return <SelectCharCont 
           
-          bossRapper={this.state.bossRapper}   
-          selectedRapper={this.state.selectedRapper}
-          user = {this.state.user}
-          endGame = {this.endGame}/>
-          }
-        }
-      }
-      />
-    </div>
+    //       rapperList={this.state.rapperList}
+    //       selectRapper={this.selectRapper}/>
+
+    //     } else if (this.state.selectedRapper != null) {
+    //       return <BattleContainer 
+          
+    //       bossRapper={this.state.bossRapper}   
+    //       selectedRapper={this.state.selectedRapper}
+    //       user = {this.state.user}
+    //       endGame = {this.endGame}/>
+    //       }
+    //     }
+    //   }
+    //   />
+    // </div>
 
     );
   }
