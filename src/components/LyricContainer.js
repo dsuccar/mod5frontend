@@ -45,16 +45,18 @@ export default class LyricCard extends React.Component {
   
     submitAnswerAndClear = (event) => {
 event.preventDefault()
-    if (this.state.answer === ""){
+    if (!!this.state.answer.trim() === false){
       this.setState({
         error: "try again",
         randomLyric: this.state.randomLyric
       })
     } else {
       this.props.onHandleSubmitAnswer(this.state.answer, this.state.turn,event)
+      
       this.setState({
         randomLyric: null,
-        answer: ""
+        answer: "",
+        error: ""
       })
 }
     }

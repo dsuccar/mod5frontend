@@ -30,9 +30,10 @@ export default class BattleContainer extends React.Component {
     }
 
   }
-  componentDidUpdate(){
-    this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
-  }
+  // componentDidUpdate(){
+    
+  //   this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
+  // }
   componentDidMount(){
     console.log(this.props.selectedRapper)
 
@@ -88,7 +89,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
         userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{
           name: this.state.bossRapperInfo.name,
-          hp: this.state.bossRapperInfo.hp - 25,
+          hp: this.state.bossRapperInfo.hp - 100,
           myTurn: !this.state.bossRapperInfo.myTurn,
           isTrue: null
         },
@@ -139,7 +140,7 @@ onHandleSubmitAnswer = (answer, turn, event) => {
           wrongGuessAnswer: bossAnswer,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp:  this.state.userRapperInfo.hp - 25 ,
+            hp:  this.state.userRapperInfo.hp - 100 ,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: null
             
@@ -157,8 +158,13 @@ onHandleSubmitAnswer = (answer, turn, event) => {
       }
     }
   }
+  
+  wrongAnswer = () => {
+    // return "❌"
+    return "this"
+  }
 answerFeedback = (lyric) => {
-  console.log(lyric)
+  
 //   if (!!lyric === true) {
 // this.setState({userRapperInfo: this.state.userRapperInfo,
 // userRapperLyrics: this.state.userRapperLyrics,
@@ -172,8 +178,8 @@ answerFeedback = (lyric) => {
 
 
   render(){
-  
-// console.log(this.state)
+    this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
+console.log(this.state)
     return(
 
       

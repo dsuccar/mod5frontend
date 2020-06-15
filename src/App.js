@@ -5,6 +5,7 @@ import Signin from './components/Signin'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
+import EndGame from './components/EndGame'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 
 
@@ -77,7 +78,7 @@ class App extends React.Component {
 
 endGame = (bossRapper,userRapper) => {
   if (bossRapper === 0) {
-    console.log("yup")
+    
   const userWon =  {
 
   user_id: this.state.user.id,
@@ -100,8 +101,7 @@ endGame = (bossRapper,userRapper) => {
     // console.log(this.state)
     
   } else if (userRapper ===0){
-    alert("User Died")
-    
+   this.props.history.push('/end_game')
 }
 }
 
@@ -121,38 +121,26 @@ endGame = (bossRapper,userRapper) => {
       <div className="App">
              {<NavBar user={this.state.user}/>}
              <Switch>
-              <Route  
-                exact 
-                path='/'
-                render={()=>{
-                    return <Signin submitUser={this.submitUser}/>
-                  }}
+                <Route exact path='/' render={()=>{
+                      return <Signin submitUser={this.submitUser}/>}}
                   />
-              
-              <Route  
-                exact 
-                path='/select_rapper'
-                render={()=>{
-                    return <SelectCharCont 
-                              rapperList={this.state.rapperList}
-                              selectRapper={this.selectRapper}/>
-                }}
-                />
-              
-              <Route  
-                exact 
-                path='/battle'
-                render={()=>{
-                  
-                    return <BattleContainer 
-                              bossRapper={this.state.bossRapper}   
-                              selectedRapper={this.state.selectedRapper}
-                              user = {this.state.user}
-                              endGame = {this.endGame}/>
-                }}
-                />
-                    </Switch>
-                    </div>
+                
+                <Route exact path='/select_rapper' render={()=>{
+                      return <SelectCharCont 
+                                rapperList={this.state.rapperList}
+                                selectRapper={this.selectRapper}/>}}
+                  />
+                
+                <Route exact path='/battle' render={()=>{
+                      return <BattleContainer 
+                                bossRapper={this.state.bossRapper}   
+                                selectedRapper={this.state.selectedRapper}
+                                user = {this.state.user}
+                                endGame = {this.endGame}/>}}
+                  />
+                  <Route exact path='/end_game' component={EndGame}/>
+              </Switch>
+      </div>
 
     //   <div className="App">
     //     {<NavBar user={this.state.user}/>}
