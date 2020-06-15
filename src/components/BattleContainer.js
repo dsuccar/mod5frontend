@@ -76,6 +76,20 @@ onHandleSubmitAnswer = (answer, turn, event) => {
   let bossAnswer = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
   let userAnswer = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
   
+
+
+// determining end game
+if (turn === "userTurn" && userAnswer.length > 0 && this.state.bossRapperInfo.hp - 100 === 0){
+  
+  this.props.endGame(this.state.bossRapperInfo.hp - 100,this.state.userRapperInfo.hp)
+
+  }else if (turn === "bossTurn" && bossAnswer.length === 0 && this.state.userRapperInfo.hp - 100 === 0)
+
+this.props.endGame(this.state.bossRapperInfo.hp ,this.state.userRapperInfo.hp - 100)
+
+
+
+// modifying state hp& turn
   if (turn === "userTurn") {
     if ( userAnswer.length > 0){
       this.setState({
@@ -178,7 +192,7 @@ answerFeedback = (lyric) => {
 
 
   render(){
-    this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
+    
 console.log(this.state)
     return(
 

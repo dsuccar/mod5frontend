@@ -2,10 +2,12 @@ import React from 'react';
 
 import './App.css';
 import Signin from './components/Signin'
+import NewUser from './components/NewUser'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
 import EndGame from './components/EndGame'
+import WinnerEndGame from './components/WinnerEndGame'
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 
 
@@ -40,6 +42,8 @@ class App extends React.Component {
     })
   }
 
+
+  // Log in with existing user: if username is in database and password matches then it sets user
   submitUser = (user) => {
     fetch("http://localhost:3000/users")
       .then(resp => resp.json())
@@ -50,10 +54,25 @@ class App extends React.Component {
       this.setState({user: pastUser})
       this.props.history.push(`/select_rapper`)
       
-    } 
-  })
-      )
+        } 
+      })
+    )
+
   }
+
+  newUser = (user) => {
+    fetch('http://localhost:3000/users/', {
+      method: "POST", 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    this.setState({user: user})
+    this.props.history.push(`/select_rapper`)
+        
+          } 
+        
 
 
   selectRapper = (rapper) =>{
@@ -94,10 +113,11 @@ endGame = (bossRapper,userRapper) => {
     })
     this.setState({
       user: this.state.user,
-      // rapperList: this.state.rapperList,
-    //   bossRapper: this.state.bossRapper,
-    //   selectedRapper: null
+      rapperList: this.state.rapperList,
+      bossRapper: this.state.bossRapper,
+      selectedRapper: null
     })
+    this.props.history.push('/winner_end_game')
     // // console.log(this.state)
     
   } else if (userRapper ===0){
@@ -105,7 +125,10 @@ endGame = (bossRapper,userRapper) => {
 }
 }
 
+ handleLogout = (event) => {
+    this.setState({userData: null})
 
+  }
 
   render() {
     // console.log(this.state.rapperList)
@@ -119,10 +142,14 @@ endGame = (bossRapper,userRapper) => {
       //   />}
             
       <div className="App">
-             {<NavBar user={this.state.user}/>}
+             {<NavBar user={this.state.user} logout={this.handleLogout} state={this.state}/>}
              <Switch>
                 <Route exact path='/' render={()=>{
                       return <Signin submitUser={this.submitUser}/>}}
+                  />
+
+                <Route exact path='/new_user' render={()=>{
+                      return <NewUser newUser={this.newUser}/>}}
                   />
                 
                 <Route exact path='/select_rapper' render={()=>{
@@ -139,6 +166,7 @@ endGame = (bossRapper,userRapper) => {
                                 endGame = {this.endGame}/>}}
                   />
                   <Route exact path='/end_game' component={EndGame}/>
+                  <Route exact path='/winner_end_game' component={WinnerEndGame}/>
               </Switch>
       </div>
 

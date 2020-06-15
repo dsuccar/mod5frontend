@@ -17,7 +17,7 @@ import { Grid } from 'semantic-ui-react'
     paddingTop: "12px"
   }
   render(){
-    // console.log(this.props)
+    console.log(this.state)
 
     return(
       

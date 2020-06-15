@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { Button, Checkbox, Form } from 'semantic-ui-react'
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 
 class Signin extends Component {
@@ -32,8 +32,11 @@ class Signin extends Component {
     this.setState({ username: "", password: "" })
   }
 
+  signIn = {
+    paddingTop: "120px"
+  }
   render() {
-// console.log(this.state.username, this.state.password)
+console.log(this.state, this.state)
 
     return (
       // <form>
@@ -48,15 +51,16 @@ class Signin extends Component {
       //    {/* <Button type='submit' value='Sign In' onClick={this.handleSubmit} >Submit</Button> */}
       //  </Form.Field>
       //  </Form>
-      <Grid columns='equal'>
-    <Grid.Column>
+      <Grid columns='equal' style={this.signIn}>
+    <Grid.Column >
       
     </Grid.Column>
-    <Grid.Column width={8}>
-      <Segment>
-        <Segment placeholder>
+    <Grid.Column  >
+      <Segment >
+        <Segment placeholder >
         <Grid columns={2}  >
-          <Grid.Column>
+          <Grid.Column >
+          <h1>Sign In:</h1>
             <Form>
               <Form.Input
                 placeholder='Log In' name='username' type='text' onChange={this.handleChange} value={this.state.username}
@@ -70,7 +74,7 @@ class Signin extends Component {
           </Grid.Column>
     
           <Grid.Column verticalAlign='middle'>
-            <Button content='New Account' icon='signup' size='big' />
+            <Button content='New User' icon='signup' size='big' as={Link} to="/new_user"/>
           </Grid.Column>
         </Grid>
     
