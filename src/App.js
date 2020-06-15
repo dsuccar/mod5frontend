@@ -94,11 +94,11 @@ endGame = (bossRapper,userRapper) => {
     })
     this.setState({
       user: this.state.user,
-      rapperList: this.state.rapperList,
-      bossRapper: this.state.bossRapper,
-      selectedRapper: null
+      // rapperList: this.state.rapperList,
+    //   bossRapper: this.state.bossRapper,
+    //   selectedRapper: null
     })
-    // console.log(this.state)
+    // // console.log(this.state)
     
   } else if (userRapper ===0){
    this.props.history.push('/end_game')
