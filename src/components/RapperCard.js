@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 
  class RapperCard extends React.Component {
@@ -13,8 +13,10 @@ import { withRouter } from 'react-router-dom';
 
 
     handleClick = () => {
-        this.props.selectRapper(this.props.rapper)
-       this.props.history.push("battle")
+      
+      this.props.selectRapper(this.props.rapper)
+      this.props.history.push("battle")
+
     }
 
 
@@ -24,9 +26,10 @@ import { withRouter } from 'react-router-dom';
     // console.log(this.props.rapper)
     // {this.props.handleClick}
     return(
-      
-   <Card onClick={this.handleClick}>
+      <div style={{padding: "50px"}}>
+   <Card onClick={this.handleClick}  centered>
       <Card.Content>
+      <Image src={this.props.rapper.gif} centered ></Image>
       <Card.Header>{this.props.rapper.name}</Card.Header>
           <Card.Description>
           <div>
@@ -35,6 +38,7 @@ import { withRouter } from 'react-router-dom';
           </Card.Description>
       </Card.Content>
   </Card>
+  </div>
 
     )
   }

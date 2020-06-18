@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import {  Menu, Header } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom';
 
 
-export default class NavBar extends Component {
+
+class NavBar extends Component {
+
+  headerClick = () => {
+    this.props.history.push(`/`)
+  }
+  title = {
+    paddingTop: "20px"
+  }
 
   render(){
     // console.log(this.props.user)
     return(
       <div>
-          <Header as="h2">
-      Rap Lyric Battle
+          <Header style={this.title} onClick={this.headerClick}>
+            
+          <h1>Alphabet Aerobics</h1>
+          <img src={'/images/Logo.png'} alt="AA Logo" width="500" height="600"></img>
      </Header>
         <Menu>
             <Menu.Item header>
@@ -37,3 +47,4 @@ export default class NavBar extends Component {
     )
   }
 }
+export default withRouter(NavBar)

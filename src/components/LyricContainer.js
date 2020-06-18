@@ -1,27 +1,48 @@
 import React from 'react'
-import {Grid ,Button } from 'semantic-ui-react'
-
+import {Grid ,Button, Input } from 'semantic-ui-react'
 
 export default class LyricCard extends React.Component {
   constructor() {
     super()
     this.state = {
       randomLyric: null,
-      answer: ""
+      answer: "",
+      i: 0,
+       b: 0
     }
 
   }
 
-  
+
 
   randomLyric = () => {
   
+ 
     const lyricArray = this.props.lyrics
-    let randomLyric = lyricArray[Math.floor(Math.random() * lyricArray.length)];
+    // if(this.state.randomLyric === null){
+    // let i = 0
+    // let b = 0}
+    // let randomLyric = lyricArray[Math.floor(Math.random() * lyricArray.length)];
+    if (this.props.userInfo.myTurn === true){
+    let lyric = lyricArray[this.state.i]
      this.setState({
-       randomLyric: randomLyric,
-      })
-      
+       randomLyric: lyric,
+       i: this.state.i + 1,
+       b: this.state.b 
+     })
+     
+      // console.log(i)
+    } else if (this.props.bossInfo.myTurn === true){
+      let lyric = lyricArray[this.state.b]
+       this.setState({
+         randomLyric: lyric,
+         b: this.state.b +1,
+         i: this.state.i
+       })
+ 
+        // console.log(b)
+      }
+      // while(lyricArray)
    
   }
 
@@ -50,17 +71,23 @@ event.preventDefault()
         error: "try again",
         randomLyric: this.state.randomLyric
       })
+     
+     
     } else {
-      this.props.onHandleSubmitAnswer(this.state.answer, this.state.turn,event)
+      this.props.onHandleSubmitAnswer(this.state.randomLyric.answer,this.state.answer, this.state.turn,event)
       
       this.setState({
         randomLyric: null,
         answer: "",
-        error: ""
+        error: "",
+        b: this.state.b ,
+         i: this.state.i
       })
+      
 }
     }
   render(){
+    console.log(this.state.randomLyric)
     this.props.answerFeedback(this.state.randomLyric)
         return(
       <Grid>
@@ -80,11 +107,12 @@ event.preventDefault()
           {this.state.randomLyric.text}
         </h1>
         <form onSubmit={ event => {this.submitAnswerAndClear(event)}} >
-          <input name="answer" 
-          placeholder="Title" 
+          <Input name="answer" 
+          placeholder="Lyric..." 
           onChange={this.handleChangeAnswer} 
            />
-           <h3>{this.state.error}</h3>
+           <h3>Song: {this.state.randomLyric.song}</h3>
+           <h5 style={{textColor: "red"}}>{this.state.error}</h5>
 
           <button type="submit">
           Submit

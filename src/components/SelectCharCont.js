@@ -13,33 +13,45 @@ import { Grid } from 'semantic-ui-react'
   }
 
 
+    
+  
+
   selectCharStyle = {
     paddingTop: "12px"
   }
+
+  backgroundStyle=
+  {backgroundImage: `url('${'/images/selectcharbackground.jpg'}')`,
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover', 
+  padding: 100,
+  height: 1000}
+
   render(){
-    console.log(this.state)
+    
+    // console.log(this.props.rapperList)
 
     return(
-      
+      <div style={this.backgroundStyle} className="course-image">
       <Grid>
       
       <Grid.Row columns={3}>
       
           
       
-      
+     
       {this.props.rapperList.map(rapper => 
       <Grid.Column style={this.selectCharStyle}>
         <RapperCard 
-
         key={rapper.id}
         rapper={rapper}
-        selectRapper={this.props.selectRapper}/>
+        selectRapper={this.props.selectRapper}
+       />
         </Grid.Column>
         )}      
       </Grid.Row>     
     </Grid>
-      
+    </div>
     )
   }
 

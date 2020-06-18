@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Grid } from 'semantic-ui-react'
+import { Image, Grid } from 'semantic-ui-react'
 
 export default class UserCard extends React.Component {
   // constructor(){
@@ -18,30 +18,68 @@ export default class UserCard extends React.Component {
 
 // }
 myTurnStyle = {
-  border: "5px solid",
-  borderColor: "#de2f2f"
+  border: "8px solid",
+  borderColor: "#db4848",
+  height: "440px",
+  padding: "140px 0px"
+  // marginLeft: auto;
+  // margin right: auto
+  
+  // padding: "0px 0px"
 }
-  render(){
+theirTurnStyle = {
+  height: "440px",
+  padding: "140px 0px"
+}
+boarderStyle = {
+  padding: "0px 0px"
+}
+// getHearts = () =>{
+//   if (this.props.userRapperInfo.lives ===3){
+//   return (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+//   (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+//   (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+// }else if(this.props.userRapperInfo.lives === 2){
+//   return (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+//   (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+// }else {
+//   return (<Image src={"/Images/heart-sprite.png"} size='mini'></Image>)
+// }
 
+// }
+ 
+ render(){
+// console.log(this.props.userRapperInfo.lives)
     return(
     
       <div>
          {!this.props.userRapperInfo.myTurn ?
          <Grid>
        <Grid.Row>
-       <Grid.Column>
+       <Grid.Column style={this.theirTurnStyle}>
+       <Image src={this.props.userRapperInfo.gif} style={{padding: "40px"}}centered></Image>
         <h1>{this.props.userRapperInfo.name}</h1>
-        <div>{this.props.userRapperInfo.hp}</div>
+        {/* <h3>{this.props.userRapperInfo.lives} lives</h3> */}
+        <Image.Group>
+        {[...Array(this.props.userRapperInfo.lives).keys()].map( (heart) => <Image src={"/Images/heart-sprite.png"} key={heart} size='mini'/> )}
+        </Image.Group>
        </Grid.Column>
  
      </Grid.Row>
      </Grid>
       :
       <Grid>
-      <Grid.Row>
+      <Grid.Row style={this.boarderStyle}>
       <Grid.Column style={this.myTurnStyle}>
-      <h1>{this.props.userRapperInfo.name}</h1>
-      <div>{this.props.userRapperInfo.hp}</div>
+      <Image src={this.props.userRapperInfo.gif} style={{padding: "40px"}} centered ></Image>
+        <h1>{this.props.userRapperInfo.name}</h1>
+        
+        <Image.Group>
+        {/* {this.getHearts} */}
+        {[...Array(this.props.userRapperInfo.lives).keys()].map( (heart) => <Image src={"/Images/heart-sprite.png"} key={heart} size='mini'/> )}
+        {/* <Image src={"/Images/heart-sprite.png"} size='mini'></Image>
+        <Image src={"/Images/heart-sprite.png"} size='mini'></Image> */}
+        </Image.Group>
       </Grid.Column>
       </Grid.Row>
       </Grid>

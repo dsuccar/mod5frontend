@@ -2,7 +2,8 @@ import UserCard from './UserCard'
 import LyricContainer from './LyricContainer'
 import BossCard from './BossCard'
 import React from 'react'
-import { Grid, Segment } from 'semantic-ui-react'
+
+import { Grid, Segment, Image } from 'semantic-ui-react'
 // import { Card } from 'semantic-ui-react'
 
 export default class BattleContainer extends React.Component {
@@ -13,7 +14,7 @@ export default class BattleContainer extends React.Component {
       userRapperInfo: {
         name: null,
         bio: null,
-        hp: 100,
+        lives: 3,
         hometown: null,
         myTurn: null
       },
@@ -21,7 +22,7 @@ export default class BattleContainer extends React.Component {
       bossRapperInfo: {
         name: null,
         bio: null,
-        hp: 100,
+        lives: 3,
         hometown: null,
         myTurn: null
       },
@@ -32,10 +33,10 @@ export default class BattleContainer extends React.Component {
   }
   // componentDidUpdate(){
     
-  //   this.props.endGame(this.state.bossRapperInfo.hp,this.state.userRapperInfo.hp)
+  //   this.props.endGame(this.state.bossRapperInfo.lives,this.state.userRapperInfo.lives)
   // }
   componentDidMount(){
-    console.log(this.props.selectedRapper)
+    // console.log(this.props.selectedRapper)
 
   fetch(`http://localhost:3000/rappers/${this.props.selectedRapper.id}`)
   .then(resp => resp.json())
@@ -43,10 +44,11 @@ export default class BattleContainer extends React.Component {
     userRapperInfo: {
       name: userRapper.name,
       bio: userRapper.bio,
-      hp: userRapper.hp,
+      lives: userRapper.lives,
       hometown: userRapper.hometown,
       myTurn: true,
-      isTrue: null
+      isTrue: null,
+      gif: userRapper.gif
 
     },
     userRapperLyrics: userRapper.lyrics
@@ -58,10 +60,11 @@ export default class BattleContainer extends React.Component {
     bossRapperInfo: {
       name: bossRapper.name,
       bio: bossRapper.bio,
-      hp: bossRapper.hp,
+      lives: bossRapper.lives,
       hometown: bossRapper.hometown,
       myTurn: false,
-      isTrue: null
+      isTrue: null,
+      gif: bossRapper.gif
     },
     bossRapperLyrics: bossRapper.lyrics
 
@@ -71,7 +74,7 @@ export default class BattleContainer extends React.Component {
 } 
 
 
-onHandleSubmitAnswer = (answer, turn, event) => {
+onHandleSubmitAnswer = (questionAnswer,answer, turn, event) => {
   event.preventDefault()
   let bossAnswer = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
   let userAnswer = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
@@ -79,53 +82,59 @@ onHandleSubmitAnswer = (answer, turn, event) => {
 
 
 // determining end game
-if (turn === "userTurn" && userAnswer.length > 0 && this.state.bossRapperInfo.hp - 100 === 0){
+if (turn === "userTurn" && userAnswer.length > 0 && this.state.bossRapperInfo.lives - 1 === 0){
   
-  this.props.endGame(this.state.bossRapperInfo.hp - 100,this.state.userRapperInfo.hp)
+  this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
 
-  }else if (turn === "bossTurn" && bossAnswer.length === 0 && this.state.userRapperInfo.hp - 100 === 0)
+  }else if (turn === "bossTurn" && bossAnswer.length === 0 && this.state.userRapperInfo.lives - 1 === 0)
 
-this.props.endGame(this.state.bossRapperInfo.hp ,this.state.userRapperInfo.hp - 100)
+this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
 
 
 
-// modifying state hp& turn
+// modifying state lives& turn
   if (turn === "userTurn") {
     if ( userAnswer.length > 0){
       this.setState({
         
         userRapperInfo: {
           name: this.state.userRapperInfo.name,
-          hp: this.state.userRapperInfo.hp ,
+          lives: this.state.userRapperInfo.lives ,
           myTurn: !this.state.userRapperInfo.myTurn,
-          isTrue: true
+          isTrue: true,
+          gif: this.state.userRapperInfo.gif
         },
         userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{
           name: this.state.bossRapperInfo.name,
-          hp: this.state.bossRapperInfo.hp - 100,
+          lives: this.state.bossRapperInfo.lives - 1,
           myTurn: !this.state.bossRapperInfo.myTurn,
-          isTrue: null
+          isTrue: null,
+          gif: this.state.bossRapperInfo.gif
         },
-        bossRapperLyrics: this.state.bossRapperLyrics
+        bossRapperLyrics: this.state.bossRapperLyrics,
+        questionAnswer: questionAnswer
         })
       } else {
         this.setState({
           wrongGuessAnswer: userAnswer,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp: this.state.userRapperInfo.hp ,
+            lives: this.state.userRapperInfo.lives ,
             myTurn: !this.state.userRapperInfo.myTurn,
-            isTrue: false
+            isTrue: false,
+            gif: this.state.userRapperInfo.gif
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
-            hp: this.state.bossRapperInfo.hp,
+            lives: this.state.bossRapperInfo.lives,
             myTurn: !this.state.bossRapperInfo.myTurn,
-            isTrue: null
+            isTrue: null,
+            gif: this.state.bossRapperInfo.gif
           },
-          bossRapperLyrics: this.state.bossRapperLyrics
+          bossRapperLyrics: this.state.bossRapperLyrics,
+          questionAnswer: questionAnswer
           })
           
       } 
@@ -135,18 +144,21 @@ this.props.endGame(this.state.bossRapperInfo.hp ,this.state.userRapperInfo.hp - 
         this.setState({
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp: this.state.userRapperInfo.hp ,
+            lives: this.state.userRapperInfo.lives ,
             myTurn: !this.state.userRapperInfo.myTurn,
-            isTrue: null
+            isTrue: null,
+            gif: this.state.userRapperInfo.gif
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
-            hp: this.state.bossRapperInfo.hp,
+            lives: this.state.bossRapperInfo.lives,
             myTurn: !this.state.bossRapperInfo.myTurn,
-            isTrue: true
+            isTrue: true,
+            gif: this.state.bossRapperInfo.gif
           },
-          bossRapperLyrics: this.state.bossRapperLyrics
+          bossRapperLyrics: this.state.bossRapperLyrics,
+          questionAnswer: questionAnswer
           })
           
       } else {
@@ -154,29 +166,29 @@ this.props.endGame(this.state.bossRapperInfo.hp ,this.state.userRapperInfo.hp - 
           wrongGuessAnswer: bossAnswer,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
-            hp:  this.state.userRapperInfo.hp - 100 ,
+            lives:  this.state.userRapperInfo.lives - 1 ,
             myTurn: !this.state.userRapperInfo.myTurn,
-            isTrue: null
+            isTrue: null,
+            gif: this.state.userRapperInfo.gif
             
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             name: this.state.bossRapperInfo.name,
-            hp: this.state.bossRapperInfo.hp,
+            lives: this.state.bossRapperInfo.lives,
             myTurn: !this.state.bossRapperInfo.myTurn,
-            isTrue: false
+            isTrue: false,
+            gif: this.state.bossRapperInfo.gif
           },
-          bossRapperLyrics: this.state.bossRapperLyrics
+          bossRapperLyrics: this.state.bossRapperLyrics,
+          questionAnswer: questionAnswer
           })
           
       }
     }
   }
   
-  wrongAnswer = () => {
-    // return "❌"
-    return "this"
-  }
+  
 answerFeedback = (lyric) => {
   
 //   if (!!lyric === true) {
@@ -190,18 +202,26 @@ answerFeedback = (lyric) => {
 }
 
 
+backgroundStyle=
+  {backgroundImage: `url('${'/images/Background.jpg'}')`,
+  backgroundAttachment: 'fixed',
+  backgroundSize: 'cover', 
+  padding: 100,
+  height: 1000}
+
 
   render(){
-    
-console.log(this.state)
+//     console.log(this.state.bossRapperInfo.isTrue)
+// console.log(this.state.questionAnswer)
     return(
 
       
   
-      
-
-      <Grid columns='equal'>
-      
+   <div style={this.backgroundStyle} className="course-image">
+{/* <Image src={} alt="Background Image" size='large' disabled style={{zIndex: 9999, height: 1000, width:1000, position: absolute}} /> */}
+      <Grid columns='equal' >
+         
+      {/* <img src={Background} alt="Background Image" ></img> */}
       <Grid.Row >
         <Grid.Column>
         </Grid.Column>
@@ -236,51 +256,71 @@ console.log(this.state)
 
       <Grid.Row >
       <Grid.Column>
+   
         <Segment>
+          
           <UserCard 
               userRapperInfo={this.state.userRapperInfo} 
               userRapperLyrics={this.state.usersRapperLyrics}/>
+              
           </Segment>
+          
         </Grid.Column>
-        <Grid.Column >
+        <Grid.Column style={{padding:"-200px"}} >
           {/* Feedback if user Rapper answered correctly */}
         { this.state.bossRapperInfo.isTrue 
         ?
         <Grid.Column>
+           <Segment>
           <h1>✅</h1>
+          </Segment>
         </Grid.Column>
        :
         <Grid.Column>
-          {this.state.bossRapperInfo.isTrue !== null
+          
+          {this.state.bossRapperInfo.isTrue === null || this.state.bossRapperInfo.isTrue === undefined 
           ?
-          <h1>❌</h1>
-          :
           <div></div>
-
+          :
+          <Segment>
+          <div>
+          <h1>❌</h1>
+          <h3>{this.state.questionAnswer}</h3>
+          </div>
+          </Segment>
           }
+          
         </Grid.Column>
         }
 
         {/* Feedback if user Rapper answered correctly */}
-         { this.state.userRapperInfo.isTrue 
+        { this.state.userRapperInfo.isTrue 
         ?
         <Grid.Column>
-          <div>✅</div>
+
+        <Segment>
+          <h1>✅</h1>
+          </Segment>
         </Grid.Column>
        :
         <Grid.Column>
-          {this.state.userRapperInfo.isTrue !== null
+          
+          {this.state.userRapperInfo.isTrue === null || this.state.userRapperInfo.isTrue === undefined 
           ?
-          <div>
-            <h1>❌</h1>
-            {/* <h3>{this.state.}</h3> */}
-          </div>
-          :
           <div></div>
-
+          :
+          <Segment>
+          <div>
+          <h1>❌</h1>
+          <h3>{this.state.questionAnswer}</h3>
+          </div>
+          </Segment>
           }
+          
         </Grid.Column>
         }
+        
+        
        
         </Grid.Column>
         <Grid.Column>
@@ -300,7 +340,7 @@ console.log(this.state)
         </Grid.Row>
         
       </Grid>
-      
+      </div>  
   
   )
 

@@ -27,16 +27,18 @@ class Signin extends Component {
       username: this.state.username,
       password: this.state.password
     }
+    
     this.props.submitUser(user)
+    // this.props.findBoss(user)
   
     this.setState({ username: "", password: "" })
   }
 
   signIn = {
-    paddingTop: "120px"
+    paddingTop: "100px"
   }
   render() {
-console.log(this.state, this.state)
+// console.log(this.state, this.state)
 
     return (
       // <form>
@@ -56,7 +58,7 @@ console.log(this.state, this.state)
       
     </Grid.Column>
     <Grid.Column  >
-      <Segment >
+      <Segment>
         <Segment placeholder >
         <Grid columns={2}  >
           <Grid.Column >

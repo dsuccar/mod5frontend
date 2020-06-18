@@ -33,7 +33,7 @@ class NewUser extends React.Component {
     })
   }
   newUser = {
-    paddingTop: "120px"
+    paddingTop: "100px"
   }
   render() {
     console.log(this.state)

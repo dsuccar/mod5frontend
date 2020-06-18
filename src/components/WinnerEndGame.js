@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button,Route } from 'semantic-ui-react'
+import { Button, Grid, Image } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 
 class WinnerEndGame extends React.Component {
 
   selectNew = () => {
+    this.props.resetState()
     this.props.history.push('/select_rapper')
   }
   // tryAgain = () => {
@@ -14,9 +15,28 @@ class WinnerEndGame extends React.Component {
     this.props.history.push('')
   }
 render(){
+  console.log(this.props)
   return(
     <div>
-      <h1>You won!</h1>
+      
+      <Grid>
+      
+      <Grid.Row >
+        {/* <Grid.Column></Grid.Column> */}
+        <Grid.Column verticalAlign='middle'>
+        <h1>1st Place!  Congratulations, {this.props.userRapper.name}</h1>
+       <Image src={this.props.userRapper.gif} style={{padding: "100px"}} centered ></Image>
+      
+        </Grid.Column>
+        </Grid.Row>
+        <Grid.Row >
+        <Grid.Column verticalAlign='middle'>
+        <h5 >2nd Place, {this.props.bossRapper.name}?</h5>
+       <Image src={this.props.bossRapper.gif} centered ></Image>
+       
+        </Grid.Column>
+        </Grid.Row>
+        </Grid>
      
       {/* <Button primary onClick={this.tryAgain}>Try again?</Button> */}
         <Button primary onClick={this.selectNew}>Select New Rapper</Button>

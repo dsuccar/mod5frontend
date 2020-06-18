@@ -1,37 +1,58 @@
 import React from 'react'
-import {  Grid } from 'semantic-ui-react'
+import {  Grid, Image } from 'semantic-ui-react'
 
 export default class BossCard extends React.Component {
 
+  
 
   myTurnStyle = {
-    border: "5px solid",
-    borderColor: "#de2f2f"
+    border: "8px solid",
+    borderColor: "#db4848",
+    height: "440px",
+    padding: "0px 0px"
+    // marginLeft: auto;
+    // margin right: auto
+    
+    // padding: "0px 0px"
+  }
+  theirTurnStyle = {
+    height: "440px",
+    padding: "0px 0px"
+  }
+  boarderStyle = {
+    padding: "0px 0px"
   }
 
-    
-
   render(){
-    // console.log(!this.props.bossRapperInfo.myTurn)
+    // console.log(this.props.bossRapperInfo.lives)
 // 
     return(
       <div>
+        
       {!this.props.bossRapperInfo.myTurn ?
       <Grid>
     <Grid.Row>
-    <Grid.Column>
+    <Grid.Column style={this.theirTurnStyle}>
+      <Image src={this.props.bossRapperInfo.gif} centered ></Image>
     <h1>{this.props.bossRapperInfo.name}</h1>
-      <div>{this.props.bossRapperInfo.hp}</div>
+      {/* <h3>Lives: {this.props.bossRapperInfo.lives} </h3> */}
+      <Image.Group>
+      {[...Array(this.props.bossRapperInfo.lives).keys()].map( (heart) => <Image src={"/Images/heart-sprite.png"} key={heart} size='mini'/> )}
+        </Image.Group>
     </Grid.Column>
     
   </Grid.Row>
   </Grid>
    :
    <Grid>
-   <Grid.Row>
-   <Grid.Column style={this.myTurnStyle}>
+     <Grid.Row style={this.boarderStyle}>
+      <Grid.Column style={this.myTurnStyle}>
+      <Image src={this.props.bossRapperInfo.gif} centered ></Image>
    <h1>{this.props.bossRapperInfo.name}</h1>
-      <div>{this.props.bossRapperInfo.hp}</div>
+      {/* <div>Lives: {this.props.bossRapperInfo.lives} </div> */}
+      <Image.Group>
+      {[...Array(this.props.bossRapperInfo.lives).keys()].map( (heart) => <Image src={"/Images/heart-sprite.png"} key={heart} size='mini'/> )}π
+        </Image.Group>
    </Grid.Column>
    </Grid.Row>
    </Grid>
