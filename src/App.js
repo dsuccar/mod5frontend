@@ -139,7 +139,7 @@ resetState = () =>{
 }
  handleLogout = () => {
     this.setState({
-     null
+     user: null
     })
 
   }
