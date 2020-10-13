@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {  Menu, Header } from 'semantic-ui-react'
+import {  Menu, Header} from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom';
 
 
@@ -24,19 +24,23 @@ class NavBar extends Component {
           <h1>Alphabet Aerobics</h1>
           <img src={'/images/Logo.png'} alt="AA Logo" width="500" height="600"></img>
      </Header>
-     {!this.props.user ? null :
+   
         <Menu>
             <Menu.Item header>
             
             </Menu.Item>
             
             <Menu.Menu position="left">
+            {!this.props.user ? null :
               <Menu.Item as={Link} to="/select_rapper">
                   See Rappers
               </Menu.Item>
+              }
+            {!this.props.user ? null :
               <Menu.Item as={Link} to={'/battle'}>
                   Start New Game
               </Menu.Item>
+              }
               </Menu.Menu>
                <Menu.Menu position="right">
               <Menu.Item onClick={this.props.handleLogout} as={Link} to="/">
@@ -44,7 +48,7 @@ class NavBar extends Component {
               </Menu.Item>
             </Menu.Menu>
           </Menu>
-    }
+    
       
      </div>
     )

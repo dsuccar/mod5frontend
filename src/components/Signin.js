@@ -51,16 +51,19 @@ class Signin extends Component {
   }
   render() {
     return (
-
+      <div>
+      
       <Grid columns='equal' style={this.signIn}>
+        
     <Grid.Column >
-     
+  
     </Grid.Column>
-
+    
     <Grid.Column  >
     
       {!!this.state.user? null :
     <Button content='Continue as Guest' onClick={this.guestSubmit} />}
+    <h3> Sign in to keep track of results, or continue on as a guest</h3>
       <Segment>
         
         <Segment placeholder >
@@ -93,6 +96,7 @@ class Signin extends Component {
       
     </Grid.Column>
   </Grid>
+  </div>
     )
   }
 } 
