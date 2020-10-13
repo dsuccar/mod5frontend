@@ -137,10 +137,9 @@ resetState = () =>{
       selectedRapper: null
     })
 }
- handleLogout = (event) => {
+ handleLogout = () => {
     this.setState({
-      user: null,
-      password: null
+      user: null
     })
 
   }
@@ -157,7 +156,7 @@ resetState = () =>{
       //   />}
             
       <div className="App">
-             {<NavBar user={this.state.user} logout={this.handleLogout} state={this.state}/>}
+             {<NavBar user={this.state.user} handleLogout={this.handleLogout} state={this.state}/>}
              <Switch>
                 <Route exact path='/' render={()=>{
                       return <Signin 
