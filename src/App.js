@@ -144,9 +144,9 @@ resetState = () =>{
 
   }
 
-  render() {
+  render(){
 
-    return (
+    return(
       // <div className="App">
         
       //   {<Signin submitUser={this.submitUser}/> }
@@ -197,7 +197,7 @@ resetState = () =>{
       </div>
 
 
-    );
+    )
   }
 }
 

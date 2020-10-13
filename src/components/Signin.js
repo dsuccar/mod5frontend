@@ -52,19 +52,8 @@ class Signin extends Component {
   render() {
 // console.log(this.state, this.state)
 
-    return (
-      // <form>
-      //   <input placeholder='Username' name='username' type='text' onChange={this.handleChange} value={this.state.username} />
-      //   <input type='submit' value='Sign In' onClick={this.handleSubmit} />
-      // </form>
-      // <Form>
-      // <Form.Field>
-      //   <h2> Sign In:</h2>
-      //    <input  />
-      //    <input  />
-      //    {/* <Button type='submit' value='Sign In' onClick={this.handleSubmit} >Submit</Button> */}
-      //  </Form.Field>
-      //  </Form>
+    return(
+
       <Grid columns='equal' style={this.signIn}>
     <Grid.Column >
      

@@ -37,7 +37,7 @@ class NewUser extends React.Component {
   }
   render() {
     console.log(this.state)
-    return (
+    return(
 
       <Grid columns='equal' style={this.newUser}>
       <Grid.Column >
@@ -76,7 +76,7 @@ class NewUser extends React.Component {
       </Grid.Column>
     </Grid>
 
-    );
+    )
   }
 }
 
