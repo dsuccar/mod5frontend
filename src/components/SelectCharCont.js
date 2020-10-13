@@ -29,7 +29,7 @@ import { Grid } from 'semantic-ui-react'
 
   render(){
     
-    // console.log(this.props.rapperList)
+    // console.log(this.state)
 
     return(
       <div style={this.backgroundStyle} className="course-image">
@@ -41,9 +41,10 @@ import { Grid } from 'semantic-ui-react'
       
      
       {this.props.rapperList.map(rapper => 
-      <Grid.Column style={this.selectCharStyle}>
+      
+      <Grid.Column key={rapper.id} style={this.selectCharStyle}>
         <RapperCard 
-        key={rapper.id}
+        
         rapper={rapper}
         selectRapper={this.props.selectRapper}
        />

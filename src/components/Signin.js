@@ -34,6 +34,18 @@ class Signin extends Component {
     this.setState({ username: "", password: "" })
   }
 
+  guestSubmit = (event) => {
+    event.preventDefault()
+    const user = {
+      username: "guest",
+      password: "123456"
+    }
+    
+    this.props.submitUser(user)
+   
+    this.setState({ username: "", password: "" })
+  }
+
   signIn = {
     paddingTop: "100px"
   }
@@ -55,10 +67,15 @@ class Signin extends Component {
       //  </Form>
       <Grid columns='equal' style={this.signIn}>
     <Grid.Column >
-      
+     
     </Grid.Column>
+
     <Grid.Column  >
+      <h1></h1>
+      {!!this.state.user? null :
+    <Button content='Continue as Guest' onClick={this.guestSubmit} />}
       <Segment>
+        
         <Segment placeholder >
         <Grid columns={2}  >
           <Grid.Column >
@@ -76,6 +93,7 @@ class Signin extends Component {
           </Grid.Column>
     
           <Grid.Column verticalAlign='middle'>
+            
             <Button content='New User' icon='signup' size='big' as={Link} to="/new_user"/>
           </Grid.Column>
         </Grid>

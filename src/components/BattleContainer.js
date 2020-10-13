@@ -3,7 +3,7 @@ import LyricContainer from './LyricContainer'
 import BossCard from './BossCard'
 import React from 'react'
 
-import { Grid, Segment, Image } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 // import { Card } from 'semantic-ui-react'
 
 export default class BattleContainer extends React.Component {
@@ -38,7 +38,7 @@ export default class BattleContainer extends React.Component {
   componentDidMount(){
     // console.log(this.props.selectedRapper)
 
-  fetch(`http://localhost:3000/rappers/${this.props.selectedRapper.id}`)
+  fetch(`https://succar-final-fi-project.herokuapp.com/rappers/${this.props.selectedRapper.id}`)
   .then(resp => resp.json())
   .then(userRapper => this.setState({
     userRapperInfo: {
@@ -54,7 +54,7 @@ export default class BattleContainer extends React.Component {
     userRapperLyrics: userRapper.lyrics
     })
   )
-  fetch(`http://localhost:3000/rappers/${this.props.bossRapper.id}`)
+  fetch(`https://succar-final-fi-project.herokuapp.com/rappers/${this.props.bossRapper.id}`)
   .then(resp => resp.json())
   .then(bossRapper => this.setState({
     bossRapperInfo: {
@@ -272,7 +272,7 @@ backgroundStyle=
         ?
         <Grid.Column>
            <Segment>
-          <h1>✅</h1>
+          <h1><span role="img" aria-label="correct">✅</span></h1>
           </Segment>
         </Grid.Column>
        :
@@ -284,8 +284,9 @@ backgroundStyle=
           :
           <Segment>
           <div>
-          <h1>❌</h1>
-          <h3>{this.state.questionAnswer}</h3>
+            <h1>
+              <span role="img" aria-label="correct">❌</span></h1>
+            <h3>{this.state.questionAnswer}</h3>
           </div>
           </Segment>
           }
@@ -299,7 +300,7 @@ backgroundStyle=
         <Grid.Column>
 
         <Segment>
-          <h1>✅</h1>
+        <h1><span role="img" aria-label="correct">✅</span></h1>
           </Segment>
         </Grid.Column>
        :
@@ -311,7 +312,8 @@ backgroundStyle=
           :
           <Segment>
           <div>
-          <h1>❌</h1>
+          <h1>
+              <span role="img" aria-label="correct">❌</span></h1>
           <h3>{this.state.questionAnswer}</h3>
           </div>
           </Segment>

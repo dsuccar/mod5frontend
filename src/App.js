@@ -27,7 +27,7 @@ class App extends React.Component {
  
   componentDidMount(){
   
-    fetch('http://localhost:3000/rappers')
+    fetch('https://succar-final-fi-project.herokuapp.com/rappers')
     .then(resp => resp.json())
     .then(rappers => {
       this.setState({
@@ -36,7 +36,7 @@ class App extends React.Component {
     })
 
 
-    fetch('http://localhost:3000/rappers')
+    fetch('https://succar-final-fi-project.herokuapp.com/rappers')
     .then(resp => resp.json())
     .then(rappers => {
       this.setState({
@@ -46,26 +46,12 @@ class App extends React.Component {
   }
 
   
-   
-    // // // })
-    // // let thisWord = []
-    // fetch('http://localhost:3000/rappers')
-    // .then(resp => resp.json())
-    // .then(rappers =>  rappers.filter(rap=> rap.isboss===true).find(boss =>{
-    //   this.setState({
-    //     bossRapper: boss.badge === ("Compton")
-    //   })
-    // } )
-    
-    // )
-  
-  
-  
+
 
 
   // Log in with existing user: if username is in database and password matches then it sets user
   submitUser = (user) => {
-    fetch("http://localhost:3000/users")
+    fetch("https://succar-final-fi-project.herokuapp.com/users")
       .then(resp => resp.json())
       .then(allUsers =>
         allUsers.forEach(pastUser => {
@@ -81,22 +67,10 @@ class App extends React.Component {
   }
 
 
-  // get all the boss' and determine who's next
-  // findBoss = () => {
-  //   // console.log(this.state.user)
-  //   // console.log("thats some good feedback")
-  //   fetch('http://localhost:3000/rappers')
-  //   .then(resp => resp.json())
-  //   .then(rappers => { 
-  //     this.setState({
-  //       bossRapper: rappers.find(rap=> rap.badge != this.state.user.badges && !!rap.badge == true )
-  //     })
-  //   })
-  // }
 
 
   newUser = (user) => {
-    fetch('http://localhost:3000/users/', {
+    fetch('https://succar-final-fi-project.herokuapp.com/users/', {
       method: "POST", 
       headers: {
         'Content-Type': 'application/json'
@@ -116,7 +90,7 @@ class App extends React.Component {
       password: this.state.user.password,
       }
     
-    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+    fetch(`https://succar-final-fi-project.herokuapp.com/users/${this.state.user.id}`, {
       method: "PATCH", 
       headers: {
         'Content-Type': 'application/json'
@@ -128,9 +102,7 @@ class App extends React.Component {
     }))
   }
 
-  newBoss = () =>{
-    console.log("new Boss")
-  }
+
 
 endGame = (bossRapper,userRapper) => {
   if (bossRapper === 0) {
@@ -141,22 +113,17 @@ endGame = (bossRapper,userRapper) => {
   boss_id: this.state.bossRapper.id,
   winner_id: this.state.user.id
   }
-    fetch("http://localhost:3000/battles", {
+    fetch("https://succar-final-fi-project.herokuapp.com/battles", {
       method: "POST", 
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userWon)
     })
-    // this.setState({
-    //   user: this.state.user,
-    //   rapperList: this.state.rapperList,
-    //   bossRapper: this.state.bossRapper,
-    //   selectedRapper: null
-    // })
-    this.newBoss()
+   
+    // this.newBoss()
     this.props.history.push('/winner_end_game')
-    // // console.log(this.state)
+  
     
   } else if (userRapper === 0){
    this.props.history.push('/end_game')}
@@ -171,12 +138,15 @@ resetState = () =>{
     })
 }
  handleLogout = (event) => {
-    this.setState({userData: null})
+    this.setState({
+      user: null,
+      password: null
+    })
 
   }
 
   render() {
-    console.log(this.state.selectedRapper)
+
     return (
       // <div className="App">
         
@@ -227,32 +197,6 @@ resetState = () =>{
               </Switch>
       </div>
 
-    //   <div className="App">
-    //     {<NavBar user={this.state.user}/>}
-    //      <Route  
-    //      exact path='/'
-    //      render={()=>{
-    //       if (this.state.user === null) {
-    //         return <Signin submitUser={this.submitUser}/>
-           
-    //     }else if (this.state.selectedRapper === null){
-    //       return <SelectCharCont 
-          
-    //       rapperList={this.state.rapperList}
-    //       selectRapper={this.selectRapper}/>
-
-    //     } else if (this.state.selectedRapper != null) {
-    //       return <BattleContainer 
-          
-    //       bossRapper={this.state.bossRapper}   
-    //       selectedRapper={this.state.selectedRapper}
-    //       user = {this.state.user}
-    //       endGame = {this.endGame}/>
-    //       }
-    //     }
-    //   }
-    //   />
-    // </div>
 
     );
   }

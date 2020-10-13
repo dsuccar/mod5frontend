@@ -12,16 +12,19 @@ class NavBar extends Component {
   title = {
     paddingTop: "20px"
   }
+  
 
   render(){
-    // console.log(this.props.user)
+    console.log("nav Props", this.props)
     return(
+      
       <div>
           <Header style={this.title} onClick={this.headerClick}>
             
           <h1>Alphabet Aerobics</h1>
           <img src={'/images/Logo.png'} alt="AA Logo" width="500" height="600"></img>
      </Header>
+     {!this.props.user ? null :
         <Menu>
             <Menu.Item header>
             
@@ -41,7 +44,7 @@ class NavBar extends Component {
               </Menu.Item>
             </Menu.Menu>
           </Menu>
-    
+    }
       
      </div>
     )
