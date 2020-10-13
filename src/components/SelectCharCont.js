@@ -28,10 +28,18 @@ import { Grid } from 'semantic-ui-react'
   height: 1000}
 
   render(){
+    
+    console.log(this.state)
+
     return(
       <div style={this.backgroundStyle} className="course-image">
-      <Grid>  
+      <Grid>
+      
       <Grid.Row columns={3}>
+      
+          
+      
+     
       {this.props.rapperList.map(rapper => 
       
       <Grid.Column key={rapper.id} style={this.selectCharStyle}>

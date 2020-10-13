@@ -23,7 +23,7 @@ import { withRouter } from 'react-router-dom';
     l
 
   render(){
-    // console.log(this.props)
+    console.log(this.props)
     // {this.props.handleClick}
     return(
       <div style={{padding: "50px"}}>

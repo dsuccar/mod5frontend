@@ -137,16 +137,14 @@ resetState = () =>{
       selectedRapper: null
     })
 }
- handleLogout = () => {
-    this.setState({
-     user: null
-    })
+ handleLogout = (event) => {
+    this.setState({userData: null})
 
   }
 
-  render(){
+  render() {
 
-    return(
+    return (
       // <div className="App">
         
       //   {<Signin submitUser={this.submitUser}/> }
@@ -156,7 +154,7 @@ resetState = () =>{
       //   />}
             
       <div className="App">
-             {<NavBar user={this.state.user} handleLogout={this.handleLogout} state={this.state}/>}
+             {<NavBar user={this.state.user} logout={this.handleLogout} state={this.state}/>}
              <Switch>
                 <Route exact path='/' render={()=>{
                       return <Signin 
@@ -197,7 +195,7 @@ resetState = () =>{
       </div>
 
 
-    )
+    );
   }
 }
 
