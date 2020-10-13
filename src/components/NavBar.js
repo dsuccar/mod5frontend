@@ -24,7 +24,7 @@ class NavBar extends Component {
           <h1>Alphabet Aerobics</h1>
           <img src={'/images/Logo.png'} alt="AA Logo" width="500" height="600"></img>
      </Header>
-     {!this.props.user ? null :
+     {!this.props.user ? false :
         <Menu>
             <Menu.Item header>
             

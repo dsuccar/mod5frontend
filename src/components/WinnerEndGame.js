@@ -16,13 +16,12 @@ class WinnerEndGame extends React.Component {
   }
 render(){
   console.log(this.props)
-  return(
+  return (
     <div>
-      
       <Grid>
       
       <Grid.Row >
-        {/* <Grid.Column></Grid.Column> */}
+      
         <Grid.Column verticalAlign='middle'>
         <h1>1st Place!  Congratulations, {this.props.userRapper.name}</h1>
        <Image src={this.props.userRapper.gif} style={{padding: "100px"}} centered ></Image>
@@ -43,6 +42,7 @@ render(){
         <Button secondary onClick={this.logout}>Logout?</Button>
     </div>
   )
-}}
+}
+}
 export default withRouter(WinnerEndGame);
 // this.props.history.push('/end_game')
