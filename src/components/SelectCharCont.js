@@ -28,30 +28,22 @@ import { Grid } from 'semantic-ui-react'
   height: 1000}
 
   render(){
-    
-    console.log(this.state)
-
     return(
       <div style={this.backgroundStyle} className="course-image">
-      <Grid>
-      
-      <Grid.Row columns={3}>
-      
+        <Grid>  
+          <Grid.Row columns={3}>
+          {this.props.rapperList.map(rapper => 
           
-      
-     
-      {this.props.rapperList.map(rapper => 
-      
-      <Grid.Column key={rapper.id} style={this.selectCharStyle}>
-        <RapperCard 
-        
-        rapper={rapper}
-        selectRapper={this.props.selectRapper}
-       />
-        </Grid.Column>
-        )}      
-      </Grid.Row>     
-    </Grid>
+          <Grid.Column key={rapper.id} style={this.selectCharStyle}>
+            <RapperCard 
+            
+            rapper={rapper}
+            selectRapper={this.props.selectRapper}
+          />
+            </Grid.Column>
+            )}      
+          </Grid.Row>     
+      </Grid>
     </div>
     )
   }

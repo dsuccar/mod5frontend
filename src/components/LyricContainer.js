@@ -91,47 +91,38 @@ event.preventDefault()
     this.props.answerFeedback(this.state.randomLyric)
         return(
       <Grid>
+        <Grid.Row columns={1}>
+          <Grid.Column>
+    
+        {!this.state.randomLyric
+        ?
       
-      <Grid.Row columns={1}>
-        <Grid.Column>
-   
-      {!this.state.randomLyric
-      ?
-     
-      <Button onClick={this.randomLyric}>click here to get lyric
-      </Button>
-   
-      :
-      <div>
-        <h1>
-          {this.state.randomLyric.text}
-        </h1>
-        <form onSubmit={ event => {this.submitAnswerAndClear(event)}} >
-          <Input name="answer" 
-          placeholder="Lyric..." 
-          onChange={this.handleChangeAnswer} 
-           />
-           <h3>Song: {this.state.randomLyric.song}</h3>
-           <h5 style={{textColor: "red"}}>{this.state.error}</h5>
+        <Button onClick={this.randomLyric}>click here to get lyric
+        </Button>
+    
+        :
+        <div>
+          <h1>
+            {this.state.randomLyric.text}
+          </h1>
+          <form onSubmit={ event => {this.submitAnswerAndClear(event)}} >
+            <Input name="answer" 
+            placeholder="Lyric..." 
+            onChange={this.handleChangeAnswer} 
+            />
+            <h3>Song: {this.state.randomLyric.song}</h3>
+            <h5 style={{textColor: "red"}}>{this.state.error}</h5>
 
-          <button type="submit">
-          Submit
-        </button>
-        </form>
-      </div>
-  
-  
-    }
-    </Grid.Column>
- </Grid.Row>
-
-        
-        
-          
-          
-      
-      
-        
+            <button type="submit">
+            Submit
+          </button>
+          </form>
+        </div>
+    
+    
+      }
+      </Grid.Column>
+  </Grid.Row>
       </Grid>
       
 

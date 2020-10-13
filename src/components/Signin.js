@@ -34,31 +34,35 @@ class Signin extends Component {
     this.setState({ username: "", password: "" })
   }
 
+  guestSubmit = (event) => {
+    event.preventDefault()
+    const user = {
+      username: "guest",
+      password: "123456"
+    }
+    
+    this.props.submitUser(user)
+   
+    this.setState({ username: "", password: "" })
+  }
+
   signIn = {
     paddingTop: "100px"
   }
   render() {
-// console.log(this.state, this.state)
-
     return (
-      // <form>
-      //   <input placeholder='Username' name='username' type='text' onChange={this.handleChange} value={this.state.username} />
-      //   <input type='submit' value='Sign In' onClick={this.handleSubmit} />
-      // </form>
-      // <Form>
-      // <Form.Field>
-      //   <h2> Sign In:</h2>
-      //    <input  />
-      //    <input  />
-      //    {/* <Button type='submit' value='Sign In' onClick={this.handleSubmit} >Submit</Button> */}
-      //  </Form.Field>
-      //  </Form>
+
       <Grid columns='equal' style={this.signIn}>
     <Grid.Column >
-      
+     
     </Grid.Column>
+
     <Grid.Column  >
+    
+      {!!this.state.user? null :
+    <Button content='Continue as Guest' onClick={this.guestSubmit} />}
       <Segment>
+        
         <Segment placeholder >
         <Grid columns={2}  >
           <Grid.Column >
@@ -76,6 +80,7 @@ class Signin extends Component {
           </Grid.Column>
     
           <Grid.Column verticalAlign='middle'>
+            
             <Button content='New User' icon='signup' size='big' as={Link} to="/new_user"/>
           </Grid.Column>
         </Grid>

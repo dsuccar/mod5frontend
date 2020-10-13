@@ -48,9 +48,9 @@ boarderStyle = {
 
 // }
  
- render(){
+ render() {
 // console.log(this.props.userRapperInfo.lives)
-    return(
+    return (
     
       <div>
          {!this.props.userRapperInfo.myTurn ?
@@ -86,7 +86,7 @@ boarderStyle = {
       }
       </div>
         
-    )
+    );
   }
 
 }

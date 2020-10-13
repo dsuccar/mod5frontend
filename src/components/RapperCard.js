@@ -23,8 +23,6 @@ import { withRouter } from 'react-router-dom';
     l
 
   render(){
-    console.log(this.props)
-    // {this.props.handleClick}
     return(
       <div style={{padding: "50px"}}>
    <Card onClick={this.handleClick}  centered>

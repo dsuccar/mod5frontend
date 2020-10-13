@@ -211,8 +211,7 @@ backgroundStyle=
 
 
   render(){
-//     console.log(this.state.bossRapperInfo.isTrue)
-// console.log(this.state.questionAnswer)
+
     return(
 
       
