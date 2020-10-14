@@ -47,7 +47,7 @@ class Signin extends Component {
   }
 
   signIn = {
-    paddingTop: "100px"
+    paddingTop: "50px"
   }
   render() {
     return (
@@ -60,10 +60,8 @@ class Signin extends Component {
     </Grid.Column>
     
     <Grid.Column  >
-    
-      {!!this.state.user? null :
-    <Button content='Continue as Guest' onClick={this.guestSubmit} />}
-    <h3> Sign in to keep track of results, or continue on as a guest</h3>
+ 
+    <h4> Sign in to keep track of wins, or continue on as a guest below to get right to the action</h4>
       <Segment>
         
         <Segment placeholder >
@@ -72,19 +70,34 @@ class Signin extends Component {
           <h1>Sign In:</h1>
             <Form>
               <Form.Input
-                placeholder='Log In' name='username' type='text' onChange={this.handleChange} value={this.state.username}
+                placeholder='Log In' 
+                name='username' 
+                type='text' 
+                onChange={this.handleChange} 
+                value={this.state.username}
               />
               <Form.Input
-              placeholder='password' name='password' type='text' onChange={this.handleChange} value={this.state.password}
+              placeholder='password' 
+              name='password' type='text' 
+              onChange={this.handleChange} 
+              value={this.state.password}
             />
       
-              <Button content='submit' value='Sign In' onClick={this.handleSubmit} />
+              <Button 
+              content='submit' 
+              value='Sign In' 
+              onClick={this.handleSubmit} />
             </Form>
           </Grid.Column>
     
           <Grid.Column verticalAlign='middle'>
             
-            <Button content='New User' icon='signup' size='big' as={Link} to="/new_user"/>
+            <Button 
+            content='New User' 
+            icon='signup' 
+            size='big' 
+            as={Link} 
+            to="/new_user"/>
           </Grid.Column>
         </Grid>
     
@@ -95,7 +108,10 @@ class Signin extends Component {
     <Grid.Column>
       
     </Grid.Column>
+    <Grid.Row></Grid.Row>
   </Grid>
+  {!!this.state.user? null :
+    <Button content='Continue as Guest' onClick={this.guestSubmit} />}
   </div>
     )
   }

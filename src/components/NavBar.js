@@ -31,6 +31,7 @@ class NavBar extends Component {
             </Menu.Item>
             
             <Menu.Menu position="left">
+           
             {!this.props.user ? null :
               <Menu.Item as={Link} to="/select_rapper">
                   See Rappers
@@ -42,10 +43,18 @@ class NavBar extends Component {
               </Menu.Item>
               }
               </Menu.Menu>
-               <Menu.Menu position="right">
+         
+            
+              <Menu.Menu position="right">
+              {!this.props.user ? null :
+           
               <Menu.Item onClick={this.props.handleLogout} as={Link} to="/">
                   Logout
               </Menu.Item>
+              }
+             <Menu.Item header>
+            
+            </Menu.Item>
             </Menu.Menu>
           </Menu>
     
