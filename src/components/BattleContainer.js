@@ -3,7 +3,7 @@ import LyricContainer from './LyricContainer'
 import BossCard from './BossCard'
 import React from 'react'
 
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Image } from 'semantic-ui-react'
 // import { Card } from 'semantic-ui-react'
 
 export default class BattleContainer extends React.Component {
@@ -14,7 +14,7 @@ export default class BattleContainer extends React.Component {
       userRapperInfo: {
         name: null,
         bio: null,
-        lives: 3,
+        // lives: 1,
         hometown: null,
         myTurn: null
       },
@@ -22,7 +22,7 @@ export default class BattleContainer extends React.Component {
       bossRapperInfo: {
         name: null,
         bio: null,
-        lives: 3,
+        // lives: 1,
         hometown: null,
         myTurn: null
       },
@@ -36,9 +36,9 @@ export default class BattleContainer extends React.Component {
   //   this.props.endGame(this.state.bossRapperInfo.lives,this.state.userRapperInfo.lives)
   // }
   componentDidMount(){
-    // console.log(this.props.selectedRapper)
+    
 
-  fetch(`https://succar-final-fi-project.herokuapp.com/rappers/${this.props.selectedRapper.id}`)
+  fetch(`http://localhost:3000/rappers/${this.props.selectedRapper.id}`)
   .then(resp => resp.json())
   .then(userRapper => this.setState({
     userRapperInfo: {
@@ -54,7 +54,8 @@ export default class BattleContainer extends React.Component {
     userRapperLyrics: userRapper.lyrics
     })
   )
-  fetch(`https://succar-final-fi-project.herokuapp.com/rappers/${this.props.bossRapper.id}`)
+  
+  fetch(`http://localhost:3000/rappers/${this.props.bossRapper.id}`)
   .then(resp => resp.json())
   .then(bossRapper => this.setState({
     bossRapperInfo: {
@@ -78,16 +79,18 @@ onHandleSubmitAnswer = (questionAnswer,answer, turn, event) => {
   event.preventDefault()
   let bossAnswer = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
   let userAnswer = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
-  
 
+  console.log(questionAnswer,answer, turn, bossAnswer, userAnswer)
 
 // determining end game
+// if its users turn and user [] > 0 (meaning that answer is correct) && boossrapper has more than 1 life:
+
 if (turn === "userTurn" && userAnswer.length > 0 && this.state.bossRapperInfo.lives - 1 === 0){
-  
   this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
 
+// else if its the boss turn and boss is incorrect && user has more than 0 lives 
+// push to end game that user loses a life
   }else if (turn === "bossTurn" && bossAnswer.length === 0 && this.state.userRapperInfo.lives - 1 === 0)
-
 this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
 
 
@@ -191,12 +194,12 @@ this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.li
   
 answerFeedback = (lyric) => {
   
-//   if (!!lyric === true) {
-// this.setState({userRapperInfo: this.state.userRapperInfo,
-// userRapperLyrics: this.state.userRapperLyrics,
-// bossRapperInfo: this.state.bossRapperInfo,
-// bossRapperLyrics: this.state.bossRapperLyrics
-// })}
+  if (!!lyric === true) {
+this.setState({userRapperInfo: this.state.userRapperInfo,
+userRapperLyrics: this.state.userRapperLyrics,
+bossRapperInfo: this.state.bossRapperInfo,
+bossRapperLyrics: this.state.bossRapperLyrics
+})}
 
 
 }
@@ -211,16 +214,13 @@ backgroundStyle=
 
 
   render(){
-
+    console.log(this.state.userRapperInfo.lives, this.state.bossRapperInfo.lives)
     return(
 
       
   
    <div style={this.backgroundStyle} className="course-image">
-{/* <Image src={} alt="Background Image" size='large' disabled style={{zIndex: 9999, height: 1000, width:1000, position: absolute}} /> */}
       <Grid columns='equal' >
-         
-      {/* <img src={Background} alt="Background Image" ></img> */}
       <Grid.Row >
         <Grid.Column>
         </Grid.Column>
@@ -271,7 +271,7 @@ backgroundStyle=
         ?
         <Grid.Column>
            <Segment>
-          <h1><span role="img" aria-label="correct">✅</span></h1>
+          <h1>✅</h1>
           </Segment>
         </Grid.Column>
        :
@@ -283,9 +283,8 @@ backgroundStyle=
           :
           <Segment>
           <div>
-            <h1>
-              <span role="img" aria-label="correct">❌</span></h1>
-            <h3>{this.state.questionAnswer}</h3>
+          <h1>❌</h1>
+          <h3>{this.state.questionAnswer}</h3>
           </div>
           </Segment>
           }
@@ -299,7 +298,7 @@ backgroundStyle=
         <Grid.Column>
 
         <Segment>
-        <h1><span role="img" aria-label="correct">✅</span></h1>
+          <h1>✅</h1>
           </Segment>
         </Grid.Column>
        :
@@ -311,8 +310,7 @@ backgroundStyle=
           :
           <Segment>
           <div>
-          <h1>
-              <span role="img" aria-label="correct">❌</span></h1>
+          <h1>❌</h1>
           <h3>{this.state.questionAnswer}</h3>
           </div>
           </Segment>

@@ -26,7 +26,7 @@ import { Grid } from 'semantic-ui-react'
   backgroundSize: 'cover', 
   padding: 100,
   height: 1000}
-
+debugger
   render(){
     return(
       <div style={this.backgroundStyle} className="course-image">

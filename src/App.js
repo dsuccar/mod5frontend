@@ -1,6 +1,6 @@
 import React from 'react';
-// this is just a commit test
-import './App.css'; 
+
+import './App.css';
 import Signin from './components/Signin'
 import NewUser from './components/NewUser'
 import NavBar from './components/NavBar';
@@ -8,7 +8,7 @@ import SelectCharCont from './components/SelectCharCont'
 import BattleContainer from './components/BattleContainer'
 import EndGame from './components/EndGame'
 import WinnerEndGame from './components/WinnerEndGame'
-import { Route, withRouter,  Switch } from 'react-router-dom'
+import { Route, withRouter, Switch } from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -18,16 +18,14 @@ class App extends React.Component {
       user: null,
       rapperList: [],
       bossRapper: null,
-      selectedRapper: null,
-      allBossRappers: null
+      selectedRapper: null
     }
   }
 
 
  
   componentDidMount(){
-  
-    fetch('https://succar-final-fi-project.herokuapp.com/rappers')
+    fetch('http://localhost:3000/rappers')
     .then(resp => resp.json())
     .then(rappers => {
       this.setState({
@@ -35,8 +33,7 @@ class App extends React.Component {
       })
     })
 
-
-    fetch('https://succar-final-fi-project.herokuapp.com/rappers')
+    fetch('http://localhost:3000/rappers')
     .then(resp => resp.json())
     .then(rappers => {
       this.setState({
@@ -45,32 +42,28 @@ class App extends React.Component {
     })
   }
 
-  
-
-
 
   // Log in with existing user: if username is in database and password matches then it sets user
+  // NEEDS TO BE MOVED TO BE
   submitUser = (user) => {
-    fetch("https://succar-final-fi-project.herokuapp.com/users")
+    fetch("http://localhost:3000/users")
       .then(resp => resp.json())
       .then(allUsers =>
         allUsers.forEach(pastUser => {
           
            if(pastUser.username === user.username && pastUser.password === user.password) {
       this.setState({user: pastUser})
-     
       this.props.history.push(`/select_rapper`)
       
         } 
       })
-      )
+    )
+
   }
 
-
-
-
+  // Creates a new user adds to db. 
   newUser = (user) => {
-    fetch('https://succar-final-fi-project.herokuapp.com/users/', {
+    fetch('http://localhost:3000/users/', {
       method: "POST", 
       headers: {
         'Content-Type': 'application/json'
@@ -79,32 +72,33 @@ class App extends React.Component {
     })
     this.setState({user: user})
     this.props.history.push(`/select_rapper`)
-   } 
         
-
+          } 
+        
+// Sending selectRapper to RapperCard.js
 
   selectRapper = (rapper) =>{
+    
     const userObj = {
       artist_id: rapper.id,
-      username: this.state.user.name,
+      username: this.state.user.username,
       password: this.state.user.password,
-      }
+      // badges:'wind' 
+    }
     
-    fetch(`https://succar-final-fi-project.herokuapp.com/users/${this.state.user.id}`, {
-      method: "PATCH", 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userObj)
-    }).then(
-      this.setState({
-      selectedRapper: rapper
-    }))
+    fetch(`http://localhost:3000/users/${this.state.user.id}`)
+      .then(response => response.json())
+      .then( 
+        this.setState({
+        selectedRapper: rapper
+      }))
+    
+
   }
 
-
-
+// this only gets called when a rapper hits 0
 endGame = (bossRapper,userRapper) => {
+  console.log("BossRapper", bossRapper, "user", userRapper)
   if (bossRapper === 0) {
     
   const userWon =  {
@@ -113,62 +107,50 @@ endGame = (bossRapper,userRapper) => {
   boss_id: this.state.bossRapper.id,
   winner_id: this.state.user.id
   }
-    fetch("https://succar-final-fi-project.herokuapp.com/battles", {
+    fetch("http://localhost:3000/battles", {
       method: "POST", 
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userWon)
     })
-   
-    // this.newBoss()
-    this.props.history.push('/winner_end_game')
-  
-    
-  } else if (userRapper === 0){
-   this.props.history.push('/end_game')}
-  } 
-
-resetState = () =>{
-   this.setState({
+    this.setState({
       user: this.state.user,
       rapperList: this.state.rapperList,
       bossRapper: this.state.bossRapper,
       selectedRapper: null
     })
+    this.props.history.push('/winner_end_game')
+    // // console.log(this.state)
+    
+  } else if (userRapper ===0){
+   this.props.history.push('/end_game')
 }
- handleLogout = () => {
-    this.setState({
-     user: null
-    })
+}
+
+ handleLogout = (event) => {
+    this.setState({userData: null})
 
   }
 
-  render(){
+  render() {
+    return (
 
-    return(
-   
-            
       <div className="App">
-             {<NavBar user={this.state.user} handleLogout={this.handleLogout} state={this.state}/>}
+             {<NavBar user={this.state.user} logout={this.handleLogout} state={this.state}/>}
              <Switch>
                 <Route exact path='/' render={()=>{
-                      return <Signin 
-                      submitUser={this.submitUser}
-                      findBoss={this.findBoss}/>}}
+                      return <Signin submitUser={this.submitUser}/>}}
                   />
 
                 <Route exact path='/new_user' render={()=>{
-                      return <NewUser 
-                      newUser={this.newUser}/>}}
+                      return <NewUser newUser={this.newUser}/>}}
                   />
                 
                 <Route exact path='/select_rapper' render={()=>{
                       return <SelectCharCont 
-                                
                                 rapperList={this.state.rapperList}
-                                selectRapper={this.selectRapper}/>
-                                }}
+                                selectRapper={this.selectRapper}/>}}
                   />
                 
                 <Route exact path='/battle' render={()=>{
@@ -178,20 +160,14 @@ resetState = () =>{
                                 user = {this.state.user}
                                 endGame = {this.endGame}/>}}
                   />
-                  <Route exact path='/end_game' render={() =>{
-                    return <EndGame resetState={this.resetState} 
-                    bossRapper={this.state.bossRapper} 
-                    userRapper={this.state.selectedRapper} />}} />
-
-                  <Route exact path='/winner_end_game' render={() =>{
-                    return <WinnerEndGame resetState={this.resetState} 
-                    bossRapper={this.state.bossRapper} 
-                    userRapper={this.state.selectedRapper} />}} />
+                  <Route exact path='/end_game' component={EndGame}/>
+                  <Route exact path='/winner_end_game' component={WinnerEndGame}/>
               </Switch>
       </div>
 
 
-    )
+
+    );
   }
 }
 

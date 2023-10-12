@@ -21,10 +21,14 @@ export default class LyricCard extends React.Component {
     const lyricArray = this.props.lyrics
     // if(this.state.randomLyric === null){
     // let i = 0
-    // let b = 0}
+    // let b = 0
+  // }
     // let randomLyric = lyricArray[Math.floor(Math.random() * lyricArray.length)];
+    
     if (this.props.userInfo.myTurn === true){
+      
     let lyric = lyricArray[this.state.i]
+
      this.setState({
        randomLyric: lyric,
        i: this.state.i + 1,
@@ -87,8 +91,8 @@ event.preventDefault()
 }
     }
   render(){
-    console.log(this.state.randomLyric)
-    this.props.answerFeedback(this.state.randomLyric)
+    
+    // this.props.answerFeedback(this.state.randomLyric)
         return(
       <Grid>
         <Grid.Row columns={1}>

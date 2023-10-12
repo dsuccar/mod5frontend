@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Image } from 'semantic-ui-react'
+import { Button, Grid, Header, Image } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 
 class WinnerEndGame extends React.Component {
@@ -23,7 +23,7 @@ render(){
       <Grid.Row >
       
         <Grid.Column verticalAlign='middle'>
-        <h1>1st Place!  Congratulations, {this.props.userRapper.name}</h1>
+        <Header as='h1'>1st Place!  Congratulations, {this.props.userRapper.name}</Header>
        <Image src={this.props.userRapper.gif} style={{padding: "100px"}} centered ></Image>
       
         </Grid.Column>

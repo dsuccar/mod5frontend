@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Image } from 'semantic-ui-react'
+import { Button, Grid, Image, Header } from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 
 class EndGame extends React.Component {
@@ -14,10 +14,9 @@ class EndGame extends React.Component {
     this.props.history.push('')
   }
 render(){
+  console.log(this.props)
   return(
     <div>
-      
-     
         <Button primary onClick={this.tryAgain}>Try again?</Button>
         <Button primary onClick={this.selectNew}>Select New Rapper</Button>
         <Button secondary onClick={this.logout}>Logout?</Button>
@@ -26,7 +25,7 @@ render(){
       <Grid.Row >
         {/* <Grid.Column></Grid.Column> */}
         <Grid.Column verticalAlign='middle'>
-        <h1>1st Place! Congratulations,{this.props.bossRapper.name}!</h1>
+        <Header as='h1'>1st Place! Congratulations,{this.props.bossRapper.name}!</Header>
        <Image src={this.props.bossRapper.gif} style={{padding: "100px"}} centered ></Image>
       
         </Grid.Column>
