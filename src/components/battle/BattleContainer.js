@@ -101,49 +101,41 @@ let userRapperInfo ={...this.state.userRapperInfo}
 // modifying state lives& turn
   if (turn === "userTurn") {
     if (!!userAnswerCorrect[0]){
-      debugger
-      // let newUserState = this.state.userRapperInfo
-      // debugger
+      console.log("user answer correct", !!userAnswerCorrect[0])
       this.setState({
-        // If user is correct change myTurn to oposite of current state, isTrue == true for user.
-        // boss loses a life
-        userRapperInfo: {
-          name: this.state.userRapperInfo.name,
-          lives: this.state.userRapperInfo.lives ,
-          myTurn: !this.state.userRapperInfo.myTurn,
-          isTrue: true,
-          gif: this.state.userRapperInfo.gif
+        // If its the user's turn and they answer correctly, boss loses a life reset isTrue and turn
+        
+        userRapperInfo: { 
+          ...this.state.userRapperInfo, 
+          myTurn: !this.state.userRapperInfo.myTurn, 
+          isTrue: true
         },
         userRapperLyrics: this.state.userRapperLyrics,
-        bossRapperInfo:{
-          name: this.state.bossRapperInfo.name,
-          lives: this.state.bossRapperInfo.lives - 1,
-          myTurn: !this.state.bossRapperInfo.myTurn,
+        bossRapperInfo:{ 
+          ...this.state.bossRapperInfo, 
+          lives: this.state.bossRapperInfo.lives - 1, 
           isTrue: null,
-          gif: this.state.bossRapperInfo.gif
+          myTurn: !this.state.bossRapperInfo.myTurn,
         },
         bossRapperLyrics: this.state.bossRapperLyrics,
         questionAnswer: questionAnswer
         })
       } else {
+        console.log("user answer incorrect")
         this.setState({
-        // If user is wrong change myTurn to oposite of current state, isTrue == false for boss.
+        // If user is wrong change myTurn to oposite of current state, isTrue .
         
           wrongGuessAnswer: userAnswerCorrect,
           userRapperInfo: {
-            name: this.state.userRapperInfo.name,
-            lives: this.state.userRapperInfo.lives ,
+            ...this.state.userRapperInfo,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: false,
-            gif: this.state.userRapperInfo.gif
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
-            name: this.state.bossRapperInfo.name,
-            lives: this.state.bossRapperInfo.lives,
+            ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
-            isTrue: null,
-            gif: this.state.bossRapperInfo.gif
+            isTrue: null
           },
           bossRapperLyrics: this.state.bossRapperLyrics,
           questionAnswer: questionAnswer
@@ -153,44 +145,39 @@ let userRapperInfo ={...this.state.userRapperInfo}
     }else if (turn === "bossTurn") {
 
       if (!!bossAnswerCorrect[0]){
+        // if boss lyric is answered correct
+        console.log("boss answer correct", !!bossAnswerCorrect[0])
         this.setState({
           userRapperInfo: {
-            name: this.state.userRapperInfo.name,
-            lives: this.state.userRapperInfo.lives ,
+            ...this.state.userRapperInfo,
             myTurn: !this.state.userRapperInfo.myTurn,
-            isTrue: null,
-            gif: this.state.userRapperInfo.gif
+            isTrue: null
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
-            name: this.state.bossRapperInfo.name,
-            lives: this.state.bossRapperInfo.lives,
+            ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
             isTrue: true,
-            gif: this.state.bossRapperInfo.gif
           },
           bossRapperLyrics: this.state.bossRapperLyrics,
           questionAnswer: questionAnswer
           })
           
       } else {
+        console.log("boss answer incorrect")
         this.setState({
           wrongGuessAnswer: bossAnswerCorrect,
           userRapperInfo: {
-            name: this.state.userRapperInfo.name,
+            ...this.state.userRapperInfo,
             lives:  this.state.userRapperInfo.lives - 1 ,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: null,
-            gif: this.state.userRapperInfo.gif
-            
           },
           userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
-            name: this.state.bossRapperInfo.name,
-            lives: this.state.bossRapperInfo.lives,
+            ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
             isTrue: false,
-            gif: this.state.bossRapperInfo.gif
           },
           bossRapperLyrics: this.state.bossRapperLyrics,
           questionAnswer: questionAnswer
