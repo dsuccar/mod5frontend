@@ -1,11 +1,11 @@
 import React from 'react';
 
 import './App.css';
-import Signin from './components/Signin'
-import NewUser from './components/NewUser'
+import Signin from './components/sign-In/Signin'
+import NewUser from './components/sign-In/NewUser'
 import NavBar from './components/NavBar';
 import SelectCharCont from './components/SelectCharCont'
-import BattleContainer from './components/BattleContainer'
+import BattleContainer from './components/battle/BattleContainer'
 import EndGame from './components/EndGame'
 import WinnerEndGame from './components/WinnerEndGame'
 import { Route, withRouter, Switch } from 'react-router-dom'
@@ -25,6 +25,8 @@ class App extends React.Component {
 
  
   componentDidMount(){
+
+// collection of bosses
     fetch('http://localhost:3000/rappers')
     .then(resp => resp.json())
     .then(rappers => {
@@ -33,6 +35,7 @@ class App extends React.Component {
       })
     })
 
+// collection of user rappers
     fetch('http://localhost:3000/rappers')
     .then(resp => resp.json())
     .then(rappers => {
@@ -96,7 +99,11 @@ class App extends React.Component {
 
   }
 
-// this only gets called when a rapper hits 0
+/**
+this only gets called when a rapper hits 0
+Creates log of the battle
+unsure why im setting state after the post call
+ **/ 
 endGame = (bossRapper,userRapper) => {
   console.log("BossRapper", bossRapper, "user", userRapper)
   if (bossRapper === 0) {
@@ -114,6 +121,7 @@ endGame = (bossRapper,userRapper) => {
       },
       body: JSON.stringify(userWon)
     })
+    
     this.setState({
       user: this.state.user,
       rapperList: this.state.rapperList,

@@ -17,25 +17,22 @@ export default class LyricCard extends React.Component {
 
   randomLyric = () => {
   
- 
+ console.log(this.state.i,this.state.b)
     const lyricArray = this.props.lyrics
-    // if(this.state.randomLyric === null){
-    // let i = 0
-    // let b = 0
-  // }
-    // let randomLyric = lyricArray[Math.floor(Math.random() * lyricArray.length)];
     
-    if (this.props.userInfo.myTurn === true){
-      
-    let lyric = lyricArray[this.state.i]
 
+    // if user turn
+    if (this.props.userInfo.myTurn === true){
+      // where i get the lyric from
+    let lyric = lyricArray[this.state.i]
+// every time i pull a lyric it adds a tick and goes down one in the array
      this.setState({
        randomLyric: lyric,
        i: this.state.i + 1,
        b: this.state.b 
      })
      
-      // console.log(i)
+
     } else if (this.props.bossInfo.myTurn === true){
       let lyric = lyricArray[this.state.b]
        this.setState({
@@ -44,14 +41,14 @@ export default class LyricCard extends React.Component {
          i: this.state.i
        })
  
-        // console.log(b)
+
       }
-      // while(lyricArray)
+
    
   }
 
   handleChangeAnswer = (event) => {
-      // console.log(event.target.value)
+   
   if (this.props.bossInfo.myTurn === true){
       this.setState({
         answer: event.target.value.toLowerCase(),
@@ -92,7 +89,7 @@ event.preventDefault()
     }
   render(){
     
-    // this.props.answerFeedback(this.state.randomLyric)
+    
         return(
       <Grid>
         <Grid.Row columns={1}>

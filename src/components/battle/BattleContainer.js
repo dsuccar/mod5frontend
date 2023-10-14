@@ -2,6 +2,7 @@ import UserCard from './UserCard'
 import LyricContainer from './LyricContainer'
 import BossCard from './BossCard'
 import React from 'react'
+import update from 'immutability-helper'
 
 import { Grid, Segment, Image } from 'semantic-ui-react'
 // import { Card } from 'semantic-ui-react'
@@ -31,10 +32,7 @@ export default class BattleContainer extends React.Component {
     }
 
   }
-  // componentDidUpdate(){
-    
-  //   this.props.endGame(this.state.bossRapperInfo.lives,this.state.userRapperInfo.lives)
-  // }
+
   componentDidMount(){
     
 
@@ -77,29 +75,38 @@ export default class BattleContainer extends React.Component {
 
 onHandleSubmitAnswer = (questionAnswer,answer, turn, event) => {
   event.preventDefault()
-  let bossAnswer = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
-  let userAnswer = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
+  let bossAnswerCorrect = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
+  let userAnswerCorrect = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
 
-  console.log(questionAnswer,answer, turn, bossAnswer, userAnswer)
 
-// determining end game
+// determining when to end the game
 // if its users turn and user [] > 0 (meaning that answer is correct) && boossrapper has more than 1 life:
+// debugger
 
-if (turn === "userTurn" && userAnswer.length > 0 && this.state.bossRapperInfo.lives - 1 === 0){
+if (turn === "userTurn" && !!userAnswerCorrect[0] && this.state.bossRapperInfo.lives - 1 === 0){
   this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
 
 // else if its the boss turn and boss is incorrect && user has more than 0 lives 
 // push to end game that user loses a life
-  }else if (turn === "bossTurn" && bossAnswer.length === 0 && this.state.userRapperInfo.lives - 1 === 0)
+  }else if (turn === "bossTurn" && !!bossAnswerCorrect[0] && this.state.userRapperInfo.lives - 1 === 0)
 this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
 
 
 
+
+
+
+let userRapperInfo ={...this.state.userRapperInfo}
+
 // modifying state lives& turn
   if (turn === "userTurn") {
-    if ( userAnswer.length > 0){
+    if (!!userAnswerCorrect[0]){
+      debugger
+      // let newUserState = this.state.userRapperInfo
+      // debugger
       this.setState({
-        
+        // If user is correct change myTurn to oposite of current state, isTrue == true for user.
+        // boss loses a life
         userRapperInfo: {
           name: this.state.userRapperInfo.name,
           lives: this.state.userRapperInfo.lives ,
@@ -120,7 +127,9 @@ this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.li
         })
       } else {
         this.setState({
-          wrongGuessAnswer: userAnswer,
+        // If user is wrong change myTurn to oposite of current state, isTrue == false for boss.
+        
+          wrongGuessAnswer: userAnswerCorrect,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
             lives: this.state.userRapperInfo.lives ,
@@ -143,7 +152,7 @@ this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.li
       } 
     }else if (turn === "bossTurn") {
 
-      if (bossAnswer.length > 0){
+      if (!!bossAnswerCorrect[0]){
         this.setState({
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
@@ -166,7 +175,7 @@ this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.li
           
       } else {
         this.setState({
-          wrongGuessAnswer: bossAnswer,
+          wrongGuessAnswer: bossAnswerCorrect,
           userRapperInfo: {
             name: this.state.userRapperInfo.name,
             lives:  this.state.userRapperInfo.lives - 1 ,
@@ -266,7 +275,7 @@ backgroundStyle=
           
         </Grid.Column>
         <Grid.Column style={{padding:"-200px"}} >
-          {/* Feedback if user Rapper answered correctly */}
+          {/* Feedback if user BOSS answered correctly */}
         { this.state.bossRapperInfo.isTrue 
         ?
         <Grid.Column>
