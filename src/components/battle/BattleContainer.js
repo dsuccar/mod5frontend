@@ -82,8 +82,10 @@ onHandleSubmitAnswer = (questionAnswer,answer, turn, event) => {
 // determining when to end the game
 // if its users turn and user [] > 0 (meaning that answer is correct) && boossrapper has more than 1 life:
 // debugger
+console.log(turn,!!userAnswerCorrect[0],this.state.bossRapperInfo.lives - 1 === 0 )
 
 if (turn === "userTurn" && !!userAnswerCorrect[0] && this.state.bossRapperInfo.lives - 1 === 0){
+
   this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
 
 // else if its the boss turn and boss is incorrect && user has more than 0 lives 
@@ -101,10 +103,9 @@ let userRapperInfo ={...this.state.userRapperInfo}
 // modifying state lives& turn
   if (turn === "userTurn") {
     if (!!userAnswerCorrect[0]){
-      console.log("user answer correct", !!userAnswerCorrect[0])
+       
+      // If its the user's turn and they answer correctly, boss loses a life reset isTrue and turn
       this.setState({
-        // If its the user's turn and they answer correctly, boss loses a life reset isTrue and turn
-        
         userRapperInfo: { 
           ...this.state.userRapperInfo, 
           myTurn: !this.state.userRapperInfo.myTurn, 
@@ -120,11 +121,12 @@ let userRapperInfo ={...this.state.userRapperInfo}
         bossRapperLyrics: this.state.bossRapperLyrics,
         questionAnswer: questionAnswer
         })
-      } else {
+      } 
+      
+      // If user is wrong change myTurn to oposite of current state, isTrue .
+      else {
         console.log("user answer incorrect")
         this.setState({
-        // If user is wrong change myTurn to oposite of current state, isTrue .
-        
           wrongGuessAnswer: userAnswerCorrect,
           userRapperInfo: {
             ...this.state.userRapperInfo,
@@ -143,9 +145,8 @@ let userRapperInfo ={...this.state.userRapperInfo}
           
       } 
     }else if (turn === "bossTurn") {
-
+// if boss lyric is answered correct
       if (!!bossAnswerCorrect[0]){
-        // if boss lyric is answered correct
         console.log("boss answer correct", !!bossAnswerCorrect[0])
         this.setState({
           userRapperInfo: {
@@ -169,7 +170,7 @@ let userRapperInfo ={...this.state.userRapperInfo}
           wrongGuessAnswer: bossAnswerCorrect,
           userRapperInfo: {
             ...this.state.userRapperInfo,
-            lives:  this.state.userRapperInfo.lives - 1 ,
+            lives:  this.state.userRapperInfo.lives - 1,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: null,
           },
@@ -222,6 +223,7 @@ backgroundStyle=
         </Grid.Column>
         <Grid.Column verticalAlign='middle'>
         <Segment>
+          {/*if user tuturn then user information, else boss info*/}
             {this.state.userRapperInfo.myTurn === true
               ?
               <LyricContainer 
@@ -263,57 +265,57 @@ backgroundStyle=
         </Grid.Column>
         <Grid.Column style={{padding:"-200px"}} >
           {/* Feedback if user BOSS answered correctly */}
-        { this.state.bossRapperInfo.isTrue 
-        ?
-        <Grid.Column>
-           <Segment>
-          <h1>✅</h1>
-          </Segment>
-        </Grid.Column>
-       :
-        <Grid.Column>
-          
-          {this.state.bossRapperInfo.isTrue === null || this.state.bossRapperInfo.isTrue === undefined 
-          ?
-          <div></div>
+            { this.state.bossRapperInfo.isTrue 
+            ?
+            <Grid.Column>
+              <Segment>
+              <h1>✅</h1>
+              </Segment>
+            </Grid.Column>
           :
-          <Segment>
-          <div>
-          <h1>❌</h1>
-          <h3>{this.state.questionAnswer}</h3>
-          </div>
-          </Segment>
-          }
-          
-        </Grid.Column>
-        }
+            <Grid.Column>
+              {/* if the question is answered incorrectly show an x and the correct answer */}
+              {this.state.bossRapperInfo.isTrue === null || this.state.bossRapperInfo.isTrue === undefined 
+              ?
+              <div></div>
+              :
+              <Segment>
+              <div>
+              <h1>❌</h1>
+              <h3>{this.state.questionAnswer}</h3>
+              </div>
+              </Segment>
+              }
+              
+            </Grid.Column>
+            }
 
         {/* Feedback if user Rapper answered correctly */}
-        { this.state.userRapperInfo.isTrue 
-        ?
-        <Grid.Column>
+            { this.state.userRapperInfo.isTrue 
+            ?
+            <Grid.Column>
 
-        <Segment>
-          <h1>✅</h1>
-          </Segment>
-        </Grid.Column>
-       :
-        <Grid.Column>
-          
-          {this.state.userRapperInfo.isTrue === null || this.state.userRapperInfo.isTrue === undefined 
-          ?
-          <div></div>
+            <Segment>
+              <h1>✅</h1>
+              </Segment>
+            </Grid.Column>
           :
-          <Segment>
-          <div>
-          <h1>❌</h1>
-          <h3>{this.state.questionAnswer}</h3>
-          </div>
-          </Segment>
-          }
-          
-        </Grid.Column>
-        }
+            <Grid.Column>
+              
+              {this.state.userRapperInfo.isTrue === null || this.state.userRapperInfo.isTrue === undefined 
+              ?
+              <div></div>
+              :
+              <Segment>
+              <div>
+              <h1>❌</h1>
+              <h3>{this.state.questionAnswer}</h3>
+              </div>
+              </Segment>
+              }
+              
+            </Grid.Column>
+            }
         
         
        

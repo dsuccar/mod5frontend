@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 
 class WinnerEndGame extends React.Component {
 
+
   selectNew = () => {
     this.props.resetState()
     this.props.history.push('/select_rapper')
@@ -15,7 +16,7 @@ class WinnerEndGame extends React.Component {
     this.props.history.push('')
   }
 render(){
-  console.log(this.props)
+  debugger
   return (
     <div>
       <Grid>
@@ -23,8 +24,8 @@ render(){
       <Grid.Row >
       
         <Grid.Column verticalAlign='middle'>
-        <Header as='h1'>1st Place!  Congratulations, {this.props.userRapper.name}</Header>
-       <Image src={this.props.userRapper.gif} style={{padding: "100px"}} centered ></Image>
+        <Header as='h1'>1st Place!  Congratulations, {this.props.selectedRapper.name}</Header>
+       <Image src={this.props.selectedRapper.gif} style={{padding: "100px"}} centered ></Image>
       
         </Grid.Column>
         </Grid.Row>

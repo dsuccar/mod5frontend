@@ -102,10 +102,10 @@ class App extends React.Component {
 /**
 this only gets called when a rapper hits 0
 Creates log of the battle
-unsure why im setting state after the post call
+Setting state after post call to send the userinformation to the end game screen
  **/ 
 endGame = (bossRapper,userRapper) => {
-  console.log("BossRapper", bossRapper, "user", userRapper)
+  console.log("endgame BossRapper", bossRapper, "user", userRapper)
   if (bossRapper === 0) {
     
   const userWon =  {
@@ -122,16 +122,17 @@ endGame = (bossRapper,userRapper) => {
       body: JSON.stringify(userWon)
     })
     
-    this.setState({
-      user: this.state.user,
-      rapperList: this.state.rapperList,
-      bossRapper: this.state.bossRapper,
-      selectedRapper: null
-    })
-    this.props.history.push('/winner_end_game')
-    // // console.log(this.state)
     
-  } else if (userRapper ===0){
+    // this.setState({
+    //   user: this.state.user,
+    //   rapperList: this.state.rapperList,
+    //   bossRapper: this.state.bossRapper,
+    //   selectedRapper: null
+    // })
+    debugger
+    this.props.history.push('/winner_end_game')
+    
+  } else if (userRapper <= 0){
    this.props.history.push('/end_game')
 }
 }
@@ -168,8 +169,19 @@ endGame = (bossRapper,userRapper) => {
                                 user = {this.state.user}
                                 endGame = {this.endGame}/>}}
                   />
-                  <Route exact path='/end_game' component={EndGame}/>
-                  <Route exact path='/winner_end_game' component={WinnerEndGame}/>
+                <Route exact path='/winner_end_game' render={()=>{
+                     return <WinnerEndGame 
+                                selectedRapper={this.state.selectedRapper}
+                                bossRapper={this.state.bossRapper}/>}} 
+                 />
+
+                <Route exact path='/end_game' render={()=>{
+                     return <WinnerEndGame 
+                                selectedRapper={this.state.selectedRapper}
+                                bossRapper={this.state.bossRapper}/>}} 
+                 />
+                  
+                  
               </Switch>
       </div>
 

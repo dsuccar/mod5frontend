@@ -32,8 +32,8 @@ render(){
         </Grid.Row>
         <Grid.Row >
         <Grid.Column verticalAlign='middle'>
-        <h5>2nd Place, #YouAreWhatYouListenTo {this.props.userRapper.name}.</h5>
-        <Image src={this.props.userRapper.gif} centered ></Image>
+        <h5>2nd Place, #YouAreWhatYouListenTo {this.props.selectedRapper.name}.</h5>
+        <Image src={this.props.selectedRapper.gif} centered ></Image>
        
         </Grid.Column>
         </Grid.Row>
