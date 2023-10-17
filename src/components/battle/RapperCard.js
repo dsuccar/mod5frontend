@@ -23,6 +23,7 @@ import { withRouter } from 'react-router-dom';
     l
 
   render(){
+    // debugger
     return(
       <div style={{padding: "50px"}}>
    <Card onClick={this.handleClick}  centered>

@@ -15,7 +15,6 @@ class NavBar extends Component {
   
 
   render(){
-    console.log("nav Props", this.props)
     return(
       
       <div>

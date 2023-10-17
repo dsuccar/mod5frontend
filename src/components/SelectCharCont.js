@@ -1,5 +1,5 @@
 import React from 'react'
-import RapperCard from './RapperCard'
+import RapperCard from './battle/RapperCard'
 import { Grid } from 'semantic-ui-react'
 
 
@@ -28,6 +28,7 @@ import { Grid } from 'semantic-ui-react'
   height: 1000}
 
   render(){
+    debugger
     return(
       <div style={this.backgroundStyle} className="course-image">
         <Grid>  
