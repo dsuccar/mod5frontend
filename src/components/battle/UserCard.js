@@ -34,7 +34,7 @@ boarderStyle = {
 
  
  render() {
-// console.log(this.props.userRapperInfo.lives)
+console.log("user card name",this.props.userRapperInfo)
     return (
     
       <div>
@@ -43,8 +43,7 @@ boarderStyle = {
        <Grid.Row>
        <Grid.Column style={this.theirTurnStyle}>
        <Image src={this.props.userRapperInfo.gif} style={{padding: "40px"}}centered></Image>
-        {/* <h1>{this.props.userRapperInfo.name}</h1> */}
-        {/* <h3>{this.props.userRapperInfo.lives} lives</h3> */}
+        <h1>{this.props.userRapperInfo.name}</h1>
         <Image.Group>
         {[...Array(this.props.userRapperInfo.lives).keys()].map( (heart) => <Image src={"/Images/heart-sprite.png"} key={heart} size='mini'/> )}
         </Image.Group>

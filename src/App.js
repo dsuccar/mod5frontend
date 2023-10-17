@@ -123,13 +123,6 @@ endGame = (bossRapper,userRapper) => {
     })
     
     
-    // this.setState({
-    //   user: this.state.user,
-    //   rapperList: this.state.rapperList,
-    //   bossRapper: this.state.bossRapper,
-    //   selectedRapper: null
-    // })
-    debugger
     this.props.history.push('/winner_end_game')
     
   } else if (userRapper <= 0){
@@ -176,7 +169,7 @@ endGame = (bossRapper,userRapper) => {
                  />
 
                 <Route exact path='/end_game' render={()=>{
-                     return <WinnerEndGame 
+                     return <EndGame 
                                 selectedRapper={this.state.selectedRapper}
                                 bossRapper={this.state.bossRapper}/>}} 
                  />

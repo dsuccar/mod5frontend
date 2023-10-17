@@ -38,7 +38,7 @@ class NewUser extends React.Component {
 
   
   render() {
-    console.log(this.state)
+    console.log("user card",this.state)
     return (
 
       <Grid columns='equal' style={this.newUser}>

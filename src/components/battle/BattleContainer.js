@@ -73,100 +73,94 @@ export default class BattleContainer extends React.Component {
 } 
 
 
+
+
+
+// next four lines of code are simply used to determine when someone one the game 
+// if its users turn and user [] > 0 (meaning that answer is correct) && boossrapper has more than 1 life:
+
+// if (turn === "userTurn" && !!userAnswerCorrect[0] && this.state.bossRapperInfo.lives - 1 === 0){
+
+//   this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
+
+// else if its the boss turn and boss is incorrect && user has more than 0 lives 
+// push to end game that user loses a life
+//   }else if (turn === "bossTurn" && !!bossAnswerCorrect[0] && this.state.userRapperInfo.lives - 1 === 0)
+// this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
+
+
+
+
+
+
 onHandleSubmitAnswer = (questionAnswer,answer, turn, event) => {
   event.preventDefault()
   let bossAnswerCorrect = this.state.bossRapperLyrics.filter(lyric => lyric.answer === answer)
   let userAnswerCorrect = this.state.userRapperLyrics.filter(lyric => lyric.answer === answer)
-
-
-// determining when to end the game
-// if its users turn and user [] > 0 (meaning that answer is correct) && boossrapper has more than 1 life:
-// debugger
-console.log(turn,!!userAnswerCorrect[0],this.state.bossRapperInfo.lives - 1 === 0 )
-
-if (turn === "userTurn" && !!userAnswerCorrect[0] && this.state.bossRapperInfo.lives - 1 === 0){
-
-  this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
-
-// else if its the boss turn and boss is incorrect && user has more than 0 lives 
-// push to end game that user loses a life
-  }else if (turn === "bossTurn" && !!bossAnswerCorrect[0] && this.state.userRapperInfo.lives - 1 === 0)
-this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
-
-
-
-
-
-
-let userRapperInfo ={...this.state.userRapperInfo}
-
 // modifying state lives& turn
   if (turn === "userTurn") {
     if (!!userAnswerCorrect[0]){
        
-      // If its the user's turn and they answer correctly, boss loses a life reset isTrue and turn
+      // User Correct
       this.setState({
+        ...this.state,
         userRapperInfo: { 
           ...this.state.userRapperInfo, 
           myTurn: !this.state.userRapperInfo.myTurn, 
           isTrue: true
         },
-        userRapperLyrics: this.state.userRapperLyrics,
         bossRapperInfo:{ 
           ...this.state.bossRapperInfo, 
           lives: this.state.bossRapperInfo.lives - 1, 
           isTrue: null,
           myTurn: !this.state.bossRapperInfo.myTurn,
         },
-        bossRapperLyrics: this.state.bossRapperLyrics,
-        questionAnswer: questionAnswer
         })
+              if( this.state.bossRapperInfo.lives - 1 === 0){
+                this.props.endGame(this.state.bossRapperInfo.lives - 1,this.state.userRapperInfo.lives)
+              }
       } 
       
-      // If user is wrong change myTurn to oposite of current state, isTrue .
+    
       else {
-        console.log("user answer incorrect")
+    // User Incorrect
         this.setState({
+          ...this.state,
           wrongGuessAnswer: userAnswerCorrect,
           userRapperInfo: {
             ...this.state.userRapperInfo,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: false,
           },
-          userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
             isTrue: null
-          },
-          bossRapperLyrics: this.state.bossRapperLyrics,
-          questionAnswer: questionAnswer
+          }
           })
-          
       } 
     }else if (turn === "bossTurn") {
-// if boss lyric is answered correct
+         
       if (!!bossAnswerCorrect[0]){
-        console.log("boss answer correct", !!bossAnswerCorrect[0])
+         // Boss correct
         this.setState({
+          ...this.state,
           userRapperInfo: {
             ...this.state.userRapperInfo,
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: null
           },
-          userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
             isTrue: true,
           },
-          bossRapperLyrics: this.state.bossRapperLyrics,
-          questionAnswer: questionAnswer
           })
-          
-      } else {
-        console.log("boss answer incorrect")
+      
+      } else {     
+        // Boss Incorrect
         this.setState({
+          ...this.state,
           wrongGuessAnswer: bossAnswerCorrect,
           userRapperInfo: {
             ...this.state.userRapperInfo,
@@ -174,15 +168,17 @@ let userRapperInfo ={...this.state.userRapperInfo}
             myTurn: !this.state.userRapperInfo.myTurn,
             isTrue: null,
           },
-          userRapperLyrics: this.state.userRapperLyrics,
           bossRapperInfo:{
             ...this.state.bossRapperInfo,
             myTurn: !this.state.bossRapperInfo.myTurn,
             isTrue: false,
           },
-          bossRapperLyrics: this.state.bossRapperLyrics,
-          questionAnswer: questionAnswer
-          })
+        })
+
+          if(this.state.userRapperInfo.lives - 1 === 0){
+            this.props.endGame(this.state.bossRapperInfo.lives ,this.state.userRapperInfo.lives - 1)
+          }
+          
           
       }
     }
@@ -211,7 +207,7 @@ backgroundStyle=
 
 
   render(){
-    console.log(this.state.userRapperInfo.lives, this.state.bossRapperInfo.lives)
+    console.log(this.state.userRapperInfo.name)
     return(
 
       
